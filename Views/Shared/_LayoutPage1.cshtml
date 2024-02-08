@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<style>
+    :root {
+        --main-color: dodgerblue;
+        --color-dark: #1D2231;
+        --text-grey: #8390A2;
+    }
+
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    
+
+
+    .sidebar {
+        width: 345px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: var(--main-color);
+        z-index: 100;
+        transition: width 300ms;
+    }
+
+        .sidebar a {
+            font-weight: normal; /* or use '400' for normal font-weight */
+        }
+
+
+    .sidebar-brand {
+        height: 90px;
+        padding: 1rem 0rem 1rem 2rem;
+        color: #fff;
+    }
+
+        .sidebar-brand span {
+            display: inline-block;
+            padding-right: 1rem;
+        }
+
+    .sidebar-menu {
+        margin-top: 1rem;
+    }
+
+        .sidebar-menu li {
+            width: 100%;
+            margin-bottom: 1.3rem;
+            padding-left: 1rem;
+        }
+
+        .sidebar-menu a {
+            padding-left: 1rem;
+            display: block;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+            .sidebar-menu a.active {
+                background: #fff;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                color: var(--main-color);
+                border-radius: 30px 0px 0px 30px;
+            }
+
+            .sidebar-menu a span:first-child {
+                font-size: 1.5rem;
+                padding-right: 1rem;
+            }
+
+    #nav-toggle:checked + .sidebar {
+        width: 70px;
+    }
+
+        #nav-toggle:checked + .sidebar .sidebar-brand,
+        #nav-toggle:checked + .sidebar li {
+            padding-left: 1rem;
+            text-align: center;
+        }
+
+            #nav-toggle:checked + .sidebar li a {
+                padding-left: 0rem;
+            }
+
+                #nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,
+                #nav-toggle:checked + .sidebar li a span:last-child {
+                    display: none;
+                }
+
+    #nav-toggle:checked ~ .main-content {
+        margin-left: 70px;
+    }
+
+        #nav-toggle:checked ~ .main-content header {
+            width: calc(100% - 70px);
+            left: 70px;
+        }
+
+    .main-content {
+        transition: margin-left 300ms;
+        margin-left: 345px;
+    }
+
+    header {
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        position: fixed;
+        left: 345px;
+        width: calc(100% - 345px);
+        top: 0;
+        z-index: 100;
+        transition: left 300ms;
+    }
+
+        header h2 {
+            color: #222;
+        }
+
+        header label span {
+            font-size: 1.7rem;
+            padding-right: 1rem;
+        }
+
+    .search-wrapper {
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+    }
+
+        .search-wrapper span {
+            display: inline-block;
+            padding: 0rem 1rem;
+            font-size: 1.5rem;
+        }
+
+        .search-wrapper input {
+            height: 100%;
+            padding: .5rem;
+            border: none;
+            outline: none;
+        }
+
+    .user-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+        .user-wrapper img {
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .user-wrapper small {
+            display: inline-block;
+            color: var(--text-grey);
+        }
+
+    #nav-toggle:checked + .sidebar .sidebar-menu li {
+        /*   display: none;*/
+        padding-left: 0;
+        text-align: center;
+        display: block;
+    }
+
+    #nav-toggle:checked + .sidebar .sidebar-brand {
+        padding-left: 0;
+        text-align: center;
+    }
+
+        #nav-toggle:checked + .sidebar .sidebar-brand span {
+            display: block;
+        }
+
+        #nav-toggle:checked + .sidebar .sidebar-brand h2 {
+            margin: 0 auto;
+        }
+
+    .sidebar-menu li a {
+        padding-left: 1rem;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        font-size: 1.1rem;
+        text-decoration: none;
+    }
+
+    .sidebar-menu a .las {
+        margin-right: 1rem; /* Add spacing between icon and text */
+        font-size: 1.5rem; /* Adjust the icon size as needed */
+    }
+
+
+    .sidebar-menu li a:hover {
+        /* add hover color */
+        background: #4F4557;
+        font-size: 1.2rem;
+    }
+
+
+    .content {
+        padding: 80px;
+    }
+
+</style>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    @Styles.Render("~/Content/css")
+</head>
+<body style="font-family: 'Oswald', sans-serif;">
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2> <span class="lab la-accusoft"> </span> <span>M.A.M Bike Shop</span> </h2>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+
+                <li>
+                    <a href="~/Home/AdminHome" class="">
+                        <span class="las la-home"></span> <!-- Icon -->
+                        <span> Home </span> <!-- Text -->
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Products/Index">
+                        <span class="las la-shopping-cart"></span> <!-- Use "las" style for shopping cart icon -->
+                        <span> Products </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/BikeBuilders/Index">
+                        <span class="las la-cogs"></span> <!-- Use "las" style for customization icon -->
+                        <span> Customization </span>
+                    </a>
+                </li>
+
+                @if (User.IsInRole("Owner"))
+                {
+                    <li>
+                        <a href="~/AspNetUsers/Index">
+                            <span class="las la-users"></span>
+                            <span> Accounts Management </span>
+                        </a>
+                    </li>
+                }
+
+
+                <li>
+                    <a href="~/Checkout/ListofOrders">
+                        <span class="las la-list-alt"></span> <!-- Use "las" style for list icon -->
+                        <span> Checkout Status Management </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/ShopAccounts/Index">
+                        <span class="las la-store"></span> <!-- Use "las" style for list icon -->
+                        <span> Shop Accounts </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/AuditLogs/AuditLogs">
+                        <span class="las la-history"></span> <!-- Use "las" style for history icon -->
+                        <span> Audit Logs</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/Home/Index">
+                        <span class="las la-users"> </span>
+                        <span> M.A.M BikeShop </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                Dashboard
+            </h2>
+
+            <div class="search-wrapper">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Search Here" />
+            </div>
+
+            <div class="user-wrapper">
+
+                <div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <ul class="navbar-nav navbar-right">
+                                <li>
+                                    @Html.ActionLink("Hello Admin" + "!", "ManageAccount", "AspNetUsers", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                </li>
+
+
+                                <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav navbar-left">
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </header>
+
+
+
+        <div class="content">
+            @RenderBody()
+        </div>
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")

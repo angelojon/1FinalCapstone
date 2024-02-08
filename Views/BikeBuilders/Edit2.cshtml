@@ -1,0 +1,169 @@
+﻿@model _1FinalCapstone.Models.BikeBuilder
+
+@{
+    ViewBag.Title = "Edit2";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+
+    .form-group {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #888888;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    input[type="submit"] {
+        margin-top: 20px;
+    }
+
+    .btn-secondary {
+        margin-left: 10px;
+    }
+
+
+    input[type="submit"] {
+        margin-top: 10px;
+    }
+
+    .btn-secondary {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+</style>
+<center>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <br />
+
+                @using (Html.BeginForm("Edit2", "BikeBuilders", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <h2 class="text-center mb-4"><b>Edit Bike Details</b></h2>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.BuilderId)
+                    <center>
+
+                        Step Title
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.StepTitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StepTitle, "", new { @class = "text-danger" })
+                        </div>
+
+                        Builder Title
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.BuilderTitle1, new { @class = "form-control", @rows = 3 })
+                            @Html.ValidationMessageFor(model => model.BuilderTitle1, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        Builder Description
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.BuilderDescription1, new { @class = "form-control", @rows = 12 })
+                            @Html.ValidationMessageFor(model => model.BuilderDescription1, "", new { @class = "text-danger" })
+                        </div>
+
+                        Price
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Bprice1, new { htmlAttributes = new { @class = "form-control", @min = 1, @oninput = "validateInput(this);" } })
+                            @Html.ValidationMessageFor(model => model.Bprice1, "", new { @class = "text-danger" })
+                        </div>
+
+                        <br />
+                        <div class="mb-3">
+                            @if (Model.ExistingImageData1 != null)
+                            {
+                                <img src="data:image/png;base64,@Convert.ToBase64String(Model.ExistingImageData1)" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                            }
+                            else if (Model.BImage1 != null)
+                            {
+                                <img src="data:image/png;base64,@Convert.ToBase64String(Model.BImage1)" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                            }
+                            else
+                            {
+                                <span>No image available</span>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="file" class="form-control-file" id="BImage1" name="BudImage1" accept=".png, .jpg, .jpeg" />
+                            <br />
+                            <span id="ImageValidation" class="text-danger validation-error"></span>
+                        </div>
+                        <br />
+                    </center>
+
+                        Archive Status
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ArchiveStatus, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.ArchiveStatus, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <input type="submit" value="Save Changes" class="btn btn-primary" />
+                            @Html.ActionLink("Back to List", "Index2", null, new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+
+    </div>
+</center>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                var imageInput = $('#BImage1');
+                var imageValidation = $('#ImageValidation');
+
+                // Check if the image input is empty
+                if (imageInput.val() === '') {
+
+                } else {
+                    // Check the file extension
+                    var fileName = imageInput.val();
+                    var fileExtension = fileName.substr((fileName.lastIndexOf('.') + 1));
+
+                    if (fileExtension.toLowerCase() !== 'png' && fileExtension.toLowerCase() !== 'jpg' && fileExtension.toLowerCase() !== 'jpeg') {
+                        event.preventDefault(); // Prevent form submission
+                        imageValidation.text('Please select a PNG, JPG, or JPEG image.'); // Display error message
+                    } else {
+                        imageValidation.text(''); // Clear any previous error message
+                    }
+                }
+            });
+            // Block negative, positive signs, and leading zeros on keydown
+            $('input[type="number"]').on('keydown', function (e) {
+                if (e.key === '-' || e.key === '+' || (e.key === '0' && this.value.length === 0)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+}

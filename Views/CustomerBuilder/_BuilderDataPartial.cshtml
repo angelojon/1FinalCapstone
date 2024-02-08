@@ -1,0 +1,135 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@if (Model.BikeBuilders.Any())
+{
+    var builder1 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId1);
+    var builder2 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId2);
+    var builder3 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId3);
+    var builder4 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId4);
+    var builder5 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId5);
+    var builder6 = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == Model.BuilderId6);
+
+
+    var commonBuilderT = builder1; // Use Builder3 if available, otherwise use Builder5
+    var commonBuilderY = builder2; // Use Builder4 if available, otherwise use Builder6
+    var commonBuilder1 = builder3 ?? builder5; // Use Builder3 if available, otherwise use Builder5
+    var commonBuilder2 = builder4 ?? builder6; // Use Builder4 if available, otherwise use Builder6
+
+
+
+    if (commonBuilder1 != null)
+    {
+        <div class="builder" data-builderid="3">
+            <h2>@commonBuilder1.StepTitle</h2>
+            <h3>@commonBuilder1.BuilderTitle1</h3>
+            <p>@commonBuilder1.BuilderDescription1</p>
+            <p>Price: $@commonBuilder1.Bprice1</p>
+
+            @if (!string.IsNullOrEmpty(commonBuilder1.Budimage1))
+            {
+                <!-- Apply the small-image class to make the image smaller -->
+                <img src="data:image/jpeg;base64, @commonBuilder1.Budimage1" alt="Image 1" class="small-image" />
+            }
+            <!-- Radio Buttons -->
+
+        </div>
+    }
+
+    if (commonBuilder2 != null)
+    {
+        <div class="builder" data-builderid="4">
+            <h2>@commonBuilder2.StepTitle</h2>
+            <h3>@commonBuilder2.BuilderTitle1</h3>
+            <p>@commonBuilder2.BuilderDescription1</p>
+            <p>Price: $@commonBuilder2.Bprice1</p>
+
+            @if (!string.IsNullOrEmpty(commonBuilder2.Budimage1))
+            {
+                <!-- Apply the small-image class to make the image smaller -->
+                <img src="data:image/jpeg;base64, @commonBuilder2.Budimage1" alt="Image 1" class="small-image" />
+            }
+            <!-- Radio Buttons -->
+
+        </div>
+    }
+
+    <form>
+        <label>
+            <input type="radio" name="builderSelection" value="1" checked /> Builder 3 and 5
+        </label>
+        <label>
+            <input type="radio" name="builderSelection" value="2" /> Builder 4 and 6
+        </label>
+        <input type="button" value="Load Data" id="loadDataButton" />
+    </form>
+
+    <!-- "Go Back" Button -->
+    <input type="button" value="Go Back to Builder 1 and 2" id="goBackToBuilder1And2Button" />
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Function to hide/show builder divs based on the selected radio button
+            function toggleBuilderDivs(selectedBuilder) {
+                // Hide all builder divs except Builder 1 and Builder 2
+
+                $('.builder').hide();
+                if (selectedBuilder === '1') {
+                    // Show Builder 3 and 5 when the first radio button is selected
+                    $('.builder[data-builderid="3"]').show();
+                    $('.builder[data-builderid="5"]').show();
+                } else if (selectedBuilder === '2') {
+                    // Show Builder 4 and 6 when the second radio button is selected
+                    $('.builder[data-builderid="4"]').show();
+                    $('.builder[data-builderid="6"]').show();
+                }
+            }
+
+            // Handle radio button change event
+            $('input[name="builderSelection"]').change(function () {
+                var selectedBuilder = $(this).val();
+                // Toggle builder divs to show/hide based on the selected radio button
+                toggleBuilderDivs(selectedBuilder);
+            });
+
+            // Initially hide all builder divs except the ones with data-builderid equal to 3 and 5 (Builder 3 and 5)
+            $('.builder').hide();
+            $('.builder[data-builderid="3"]').show();
+            $('.builder[data-builderid="5"]').show();
+
+            // Set the initially selected radio button to "Builder 3 and 5"
+            $('input[name="builderSelection"][value="1"]').prop('checked', true);
+
+            // Handle form submission (optional)
+            $('#loadDataButton').click(function (e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+                var selectedBuilder = $('input[name="builderSelection"]:checked').val();
+                // You can perform AJAX data loading here if needed
+            });
+
+
+        });
+    </script>
+    <script>
+      
+
+        $(document).ready(function () {
+            // Event handler for "Go Back" button click
+            $('#goBackToBuilder1And2Button').click(function () {
+                // Hide the partial view container
+                $('#builderData').hide();
+                // Show the main content container
+                $('#mainContent').show();
+                $('#builderM').show();
+               
+            });
+        });
+    </script>
+    
+}
+else
+{
+    <p>No data available for the selected builder.</p>
+}

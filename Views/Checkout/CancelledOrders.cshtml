@@ -1,0 +1,116 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.CancelledOrders>
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CancelledOrders</title>
+    <style>
+        th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Add a space here -->
+    &nbsp;&nbsp;&nbsp;
+    <!-- Button to redirect to Accepted Orders with increased margin -->
+    @Html.ActionLink("Go to Accepted Orders", "AcceptedOrders", null, new { @class = "btn btn-primary btn-margin" })
+    @Html.ActionLink("Go to Completed Orders", "ListofCompletedOrders", "CompletedOrders", null, new { @class = "btn btn-primary btn-margin" })
+    @Html.ActionLink("Go to Cancelled Orders", "CancelledOrders", null, new { @class = "btn btn-primary btn-margin" })
+    <br />
+    <h2>Cancelled Orders</h2>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Order Name
+
+            </th>
+            <th>
+                Order Quantity
+
+            </th>
+            <th>
+                Order Price
+
+            </th>
+            <th>
+                Total Price
+
+            </th>
+            <th>
+                First Name
+
+            </th>
+            <th>
+                Last Name
+
+            </th>
+            <th>
+                Email
+
+            </th>
+            <th>
+                Contact Number
+
+            </th>
+            <th>
+                Payment Mode
+
+            </th>
+            <th>
+                Reference Number
+
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentMode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerAccountNumber)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

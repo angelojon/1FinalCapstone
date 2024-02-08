@@ -1,0 +1,43 @@
+﻿
+@model List<_1FinalCapstone.Models.Merge>
+
+
+@{
+    ViewBag.Title = "OrderConfirmation";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Checkout</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order Name</th>
+                    <th>Order Quantity</th>
+                    <th>Order Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OrderName</td>
+                        <td>@item.OrderPrice</td>
+                        <td>₱@string.Format("{0:n0}", item.Subtotal).00</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+

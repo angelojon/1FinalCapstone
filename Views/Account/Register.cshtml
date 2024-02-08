@@ -1,0 +1,108 @@
+﻿
+@model _1FinalCapstone.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+<style>
+    form {
+        text-align: center;
+    }
+
+    form-contorl {
+        text-align: center;
+    }
+
+    body {
+        font-family: 'Oswald', sans-serif;
+        overflow-x: hidden;
+    }
+</style>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+{
+    <section class="vh-100 bg-image">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                @Html.AntiForgeryToken()
+                                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                              
+                                <form>
+                                    <center>
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                        <br />
+
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                        <br />
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <br />
+
+                                        <div class="col-md-10">
+                                            <span class="text-muted">Follow format, House number, St name, Barangay, City</span>
+                                            <br />
+                                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", type = "address", placeholder = "Ex. 2001 Varona St. Barangay 95 Tondo Manila" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                                        <br />
+
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control", type = "contactNumber", placeholder = "Contact Number" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.ContactNumber, "", new { @class = "text-danger" })
+
+                                        <br />
+
+                                        <div class="col-md-10">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "Password" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        <br />
+
+                                        <div class="col-md-10">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password", placeholder = "ConfirmPassword" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                                        <br />
+
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" value="Register" class="btn btn-success btn-block gradient-custom-4 text-body">
+                                                Register
+                                            </button>
+
+                                        </div>
+
+                                        <br />
+
+                                        <p>
+                                            Have already an account? @Html.ActionLink("Login Here", "Login")
+                                        </p>
+                                    </center>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br />
+    <br />
+    <br />
+    <br />
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,211 @@
+﻿@model _1FinalCapstone.Controllers.HomeController.PaginatedList<_1FinalCapstone.Models.CompletedOrders>
+
+@{
+    ViewBag.Title = "List of Completed Orders";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<br />
+<br />
+<h2>List of Completed Orders</h2>
+<br />
+<style>
+    table.table thead th {
+        width: 10%; /* Adjust the width as needed */
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) for long titles */
+    }
+
+    table#yourTableId {
+        font-weight: normal;
+    }
+
+    .pagination a {
+        padding: 5px 10px; /* Adjust the padding as needed */
+        margin: 0 2px; /* Adjust the margin as needed */
+        border: 1px solid #007bff; /* Border color for the links */
+        border-radius: 5px; /* Rounded corners */
+        color: #007bff; /* Text color for the links */
+        text-decoration: none;
+    }
+
+    /* Style for the current page link */
+    .pagination span {
+        padding: 5px 10px; /* Adjust the padding as needed */
+        margin: 0 2px; /* Adjust the margin as needed */
+        background-color: #007bff; /* Background color for the current page link */
+        color: #fff; /* Text color for the current page link */
+        border-radius: 5px; /* Rounded corners */
+    }
+    .custom-alert {
+        position: fixed;
+        top: 50%; /* Vertically center */
+        left: 60%; /* Horizontally center */
+        transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+        background-color: #007bff; /* Blue background color */
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        opacity: 1;
+        transition: opacity 1s;
+        z-index: 5000;
+    }
+
+</style>
+<div class="d-flex justify-content-end mb-2">
+
+    @Html.ActionLink("Go to Accepted Orders", "AcceptedOrders", "Checkout", null, new { @class = "btn btn-primary btn-margin" })
+    &nbsp;&nbsp;&nbsp;
+    @Html.ActionLink("Go to Placed Orders", "ListofOrders", "Checkout", null, new { @class = "btn btn-primary btn-margin" })
+    &nbsp;&nbsp;&nbsp;
+    <a href="@Url.Action("SummaryReports", "CompletedOrders")" target="_blank" class="btn btn-primary btn-margin">
+        <i class="fas fa-receipt"></i> <!-- Adjust the Font Awesome icon class as needed -->
+        Summary Reports
+    </a>
+
+
+    &nbsp;&nbsp;&nbsp;
+    <!-- Button to calculate totals -->
+    <button id="calculateTotal" class="btn btn-primary btn-margin">Quick Total Summary</button>
+
+</div>
+
+<!-- Placeholders for total price, total cost, and difference -->
+
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Order Name</th>
+                <th>Order Quantity</th>
+                <th>Order Price</th>
+                <th>Total Price</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Payment Mode</th>
+                <th>Customer Account Number</th>
+                <th>Order Status</th>
+                <th>Checkout Date</th>
+                <th>Accepted Date</th>
+                <th>Completed Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.OrderName</td>
+                <td>@item.OrderQuantity</td>
+                <td>
+                    ₱@string.Format("{0:n0}", item.OrderPrice).00
+                </td>
+                <td>
+                    ₱@string.Format("{0:n0}", item.TotalPrice).00
+                </td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>@item.Address</td>
+                <td>@item.ContactNumber</td>
+                <td>@item.PaymentMode</td>
+                <td>@item.CustomerAccountNumber</td>
+                <td>@item.OrderStatus</td>
+                <td>@item.CheckoutDate</td>
+                <td>@item.AcceptedDate</td>
+                <td>@item.CompletedDate</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { id = item.CompletedId })</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="pagination">
+    @if (Model.TotalPages > 1)
+    {
+        if (Model.PageIndex > 1)
+        {
+            @*<a href="?page=1&pageSize=@Model.PageSize">First</a>
+                <a href="?page=@(Model.PageIndex - 1)&pageSize=@Model.PageSize">Previous</a>*@
+        }
+        for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="?page=@i&pageSize=@Model.PageSize">@i</a>
+            }
+        }
+        if (Model.PageIndex < Model.TotalPages)
+        {
+            @*<a href="?page=@(Model.PageIndex + 1)&pageSize=@Model.PageSize">Next</a>
+                <a href="?page=@Model.TotalPages&pageSize=@Model.PageSize">Last</a>*@
+        }
+    }
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#calculateTotal').click(function () {
+                // Send an Ajax request to the CalculateTotalPrice action
+                $.ajax({
+                    url: '@Url.Action("CalculateTotalPrice", "CompletedOrders")', // Replace YourControllerName with the actual controller name
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        // Handle the response and display results in an alert
+                        // Function to create and display a styled alert
+                        function showAlert(message) {
+                            var alertBox = document.createElement("div");
+                            alertBox.classList.add("custom-alert");
+                            alertBox.innerHTML = message;
+
+                            document.body.appendChild(alertBox);
+
+                            // Automatically hide the alert after 10 seconds
+                            setTimeout(function () {
+                                alertBox.style.opacity = "0";
+                                setTimeout(function () {
+                                    alertBox.remove();
+                                }, 1000);
+                            }, 10000);
+                        }
+
+                        var earnedMessage;
+                        if (data.Earned < 0) {
+                            earnedMessage = "Earned: ₱0.00";
+                        } else {
+                            earnedMessage = "Earned: ₱" + data.Earned.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        }
+
+                        var totalPrice = data.TotalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        var totalCost = data.TotalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        var difference = data.Difference.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        var message = `
+                      Total Revenue: ₱${totalPrice}<br>
+                       Total Investment: ₱${totalCost}<br>
+                        Goal to Earn: ₱${difference}<br>
+                        ${earnedMessage}
+                        `;
+
+                        showAlert(message);
+
+
+                    },
+                    error: function (error) {
+                        alert("Error: " + error.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

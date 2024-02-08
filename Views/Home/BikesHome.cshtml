@@ -1,0 +1,154 @@
+﻿
+@model _1FinalCapstone.Models.Merge
+
+@{
+    ViewBag.Title = "Bikes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+
+    <!-- site metas -->
+    <title>Builder</title>
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link href="~/css/StyleSheet3.css" rel="stylesheet" />
+
+
+
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Raleway:400,700,800&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <br />
+    <!-- header section start -->
+    <div class="header_section header_bg">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </nav>
+        <!-- banner section start -->
+        <div class="banner_section layout_padding">
+            <div id="main_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="best_text">Try</div>
+                                    <div class="image_1"><img src="~/img-1.png" /></div>
+
+                                </div>
+                                <div class="col-md-5">
+                                    <h1 class="banner_taital">Custom Bike Builder</h1>
+                                    <br>
+                                    <br>
+                                    <h1 class="banner_text">Embrace The Bike Love & Craft It Your Way!</h1>
+                                    <div class="contact_bt">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a href="~/CustomerBuilder/Step1Frame"><b>Build Now</b></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/Account/Login"><b>Login to Build</b></a>
+                                        }
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="best_text">Best</div>
+                                    <div class="image_1"><img src="~/img-1.png" /></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <h1 class="banner_taital">Custom Bike Builder</h1>
+                                    <h1 class="banner_text">Embrace Bike Love & Craft It Your Way!</h1>
+                                    <div class="contact_bt"><a href="contact.html">Build Now</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="best_text">Best</div>
+                                    <div class="image_1"><img src="~/img-1.png" /></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <h1 class="banner_taital">New Model Cycle</h1>
+                                    <h1 class="banner_text">Embrace The Bike Love & Craft It Your Way!</h1>
+                                    <div class="contact_bt"><a href="contact.html">Build Now</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- banner section end -->
+    </div>
+    <!-- header section end -->
+    <!-- news section start -->
+    <div class="news_section layout_padding">
+        <div class="container">
+            <h1 class="news_taital">What is in our Builder</h1>
+            <h4 class="news_text">Introducing the Custom Bike Builder, where your dream ride comes to life! This is more than just a bike, it's an extension of your identity on the trail. Take the reins with our personalized builder and craft a high-performance masterpiece that shouts YOU in every pedal stroke!</h4>
+            <div class="news_section_2 layout_padding">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="box_main_1">
+                            <div class="zoomout frame"><img src="~/Personalize.jpeg" /></div>
+                            <div class="padding_15">
+                                <h2 class="speed_text">Personalized</h2>
+                                <p class="long_text">The bike builder website offers a personalized, tailored experience, allowing you to create a unique and individualized bike that suits your preferences</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="box_main_1">
+                            <div class="zoomout frame"><img src="~/Easytouse.png" /></div>
+                            <div class="padding_15">
+                                <h2 class="speed_text">Intuitive</h2>
+                                <div class="post_text"><span style="float: right;"></span></div>
+                                <p class="long_text">The website is intuitive, user-friendly, and easy to navigate, making the process of building your dream bike a seamless and enjoyable journey</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="box_main_1">
+                            <div class="zoomout frame"><img src="~/Dynamic.jpeg" /></div>
+                            <div class="padding_15">
+                                <h2 class="speed_text">Dynamic</h2>
+                                <div class="post_text"><span style="float: right;"></span></div>
+                                <p class="long_text">The bike builder website adapts to your choices, allowing you to see real-time changes and modifications as you build your bike</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

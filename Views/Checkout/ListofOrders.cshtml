@@ -1,0 +1,245 @@
+﻿@model _1FinalCapstone.Controllers.HomeController.PaginatedList<_1FinalCapstone.Models.CheckoutTable>
+@{
+    ViewBag.Title = "ListofOrders";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<br />
+<br />
+<h2>List of Orders</h2>
+<br />
+<style>
+    table.table thead th {
+        width: 10%; /* Adjust the width as needed */
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) for long titles */
+    }
+
+    table#yourTableId {
+        font-weight: normal;
+    }
+
+    .pagination a {
+        padding: 5px 10px; /* Adjust the padding as needed */
+        margin: 0 2px; /* Adjust the margin as needed */
+        border: 1px solid #007bff; /* Border color for the links */
+        border-radius: 5px; /* Rounded corners */
+        color: #007bff; /* Text color for the links */
+        text-decoration: none;
+    }
+
+    /* Style for the current page link */
+    .pagination span {
+        padding: 5px 10px; /* Adjust the padding as needed */
+        margin: 0 2px; /* Adjust the margin as needed */
+        background-color: #007bff; /* Background color for the current page link */
+        color: #fff; /* Text color for the current page link */
+        border-radius: 5px; /* Rounded corners */
+    }
+</style>
+<div class="mb-2">
+    <button type="button" id="AcceptSelectedOrders" class="btn btn-success btn-margin">
+        <i class="fa fa-check"></i>
+    </button>
+
+    <button type="button" id="CancelSelectedOrders" class="btn btn-danger btn-margin">
+        <i class="fa fa-times"></i>
+    </button>
+
+    <!-- Add a space here -->
+    &nbsp;&nbsp;&nbsp;
+    <!-- Button to redirect to Accepted Orders with increased margin -->
+    @Html.ActionLink("Go to Accepted Orders", "AcceptedOrders", null, new { @class = "btn btn-primary btn-margin" })
+
+
+    @Html.ActionLink("Go to Completed Orders", "ListofCompletedOrders", "CompletedOrders", null, new { @class = "btn btn-primary btn-margin" })
+
+
+    @Html.ActionLink("Go to Cancelled Orders", "CancelledOrders", null, new { @class = "btn btn-primary btn-margin" })
+
+
+</div>
+
+<br />
+<div class="table-responsive">
+    <table id="9" class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th><input type="checkbox" class="all-checkbox" id="checkAll"></th>
+                <th>Order Name</th>
+                <th>Order Quantity</th>
+                <th>Order Price</th>
+                <th>Total Price</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Payment Mode</th>
+                <th>Customer Account Number</th>
+                <th>Order Status</th>
+
+            </tr>
+        </thead>
+        <tbody style="font-weight: normal;">
+            @foreach (var item in Model.Items)
+            {
+                <tr data-checkoutid="@item.CheckoutId">
+                    <td>
+                        <input type="checkbox" name="selectedItems" />
+                    </td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.OrderName)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.OrderQuantity)</td>
+                    <td style="font-weight: normal;">₱@string.Format("{0:n0}", item.OrderPrice).00</td>
+                    <td style="font-weight: normal;">₱@string.Format("{0:n0}", item.TotalPrice).00</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.PaymentMode)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.CustomerAccountNumber)</td>
+                    <td style="font-weight: normal;">@Html.DisplayFor(modelItem => item.OrderStatus)</td>
+                    <!-- Inside the foreach loop -->
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    @if (Model.TotalPages > 1)
+    {
+        if (Model.PageIndex > 1)
+        {
+            @*<a href="?page=1&pageSize=@Model.PageSize">First</a>
+                <a href="?page=@(Model.PageIndex - 1)&pageSize=@Model.PageSize">Previous</a>*@
+        }
+        for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.PageIndex)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="?page=@i&pageSize=@Model.PageSize">@i</a>
+            }
+        }
+        if (Model.PageIndex < Model.TotalPages)
+        {
+            @*<a href="?page=@(Model.PageIndex + 1)&pageSize=@Model.PageSize">Next</a>
+                <a href="?page=@Model.TotalPages&pageSize=@Model.PageSize">Last</a>*@
+        }
+    }
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function showConfirmationPopup(checkoutId) {
+        var confirmation = confirm("Please make sure you verify the payment of this customer.\n\nDo you want to proceed?");
+        if (confirmation) {
+            // Redirect or perform the action here
+            window.location.href = "/Checkout/AcceptOrder?checkoutId=" + checkoutId;
+        } else {
+            // Do nothing or provide feedback to the user
+        }
+    }
+</script>
+<script>
+    $("#AcceptSelectedOrders").on("click", function () {
+        var selectedCheckoutIds = [];
+
+        $("input[name='selectedItems']:checked").each(function () {
+            selectedCheckoutIds.push($(this).closest("tr").data("checkoutid"));
+        });
+
+        console.log(selectedCheckoutIds); // Log the selected checkout IDs
+
+        if (selectedCheckoutIds.length > 0) {
+            // Ask the user to verify the payment
+            if (confirm("Please make sure you verify the payment of this customer/customers. Do you want to proceed?")) {
+                // If the user clicks "OK," send selectedCheckoutIds to the server using an AJAX request
+                $.ajax({
+                    url: '/Checkout/AcceptSelectedOrders',
+                    method: 'POST',
+                    data: { checkoutIds: selectedCheckoutIds },
+                    success: function (data) {
+                        // Handle the response from the server
+                        // If the operation was successful, redirect to the ListofOrders page
+                        if (data.message === "Selected orders have been accepted.") {
+                            window.location.href = '/Checkout/ListofOrders';
+                        }
+                    }
+                });
+            } else {
+                // If the user clicks "Cancel," you can provide additional feedback or take appropriate action.
+                alert("Operation canceled.");
+            }
+        } else {
+            // No checkboxes were selected, provide a message or feedback to the user.
+            alert("No orders selected.");
+        }
+    });
+</script>
+
+<script>
+    // jQuery script to handle the "Check All" checkbox
+    $(document).ready(function () {
+        // Handle the click event of the "Check All" checkbox
+        $('#checkAll').click(function () {
+            // Select all checkboxes with the name "selectedItems"
+            $('input[name="selectedItems"]').prop('checked', this.checked);
+        });
+
+        // Handle the individual checkboxes
+        $('input[name="selectedItems"]').click(function () {
+            // Check the "Check All" checkbox if all individual checkboxes are checked
+            if ($('input[name="selectedItems"]:checked').length === $('input[name="selectedItems"]').length) {
+                $('#checkAll').prop('checked', true);
+            } else {
+                $('#checkAll').prop('checked', false);
+            }
+        });
+    });
+</script>
+
+<script>
+    $("#CancelSelectedOrders").on("click", function () {
+        var selectedCheckoutIds = [];
+
+        $("input[name='selectedItems']:checked").each(function () {
+            selectedCheckoutIds.push($(this).closest("tr").data("checkoutid"));
+        });
+
+        if (selectedCheckoutIds.length > 0) {
+            // Ask the user to confirm the cancellation
+            if (confirm("Are you sure you want to cancel the selected order(s)?")) {
+                // Make an AJAX request to the controller action
+                $.ajax({
+                    url: '/Checkout/CancelSelectedOrders', // Replace with your actual controller and action names
+                    method: 'POST',
+                    data: { orderIds: selectedCheckoutIds },
+                    success: function (data) {
+                        if (data.message === "Selected orders have been canceled.") {
+                            // Reload the page or perform other actions if needed
+                            location.reload();
+                        } else {
+                            // Handle errors or provide feedback
+                            alert("Error: " + data.message);
+                        }
+                    },
+                    error: function () {
+                        // Handle AJAX request errors
+                        alert("An error occurred while canceling orders.");
+                    }
+                });
+            }
+        } else {
+            alert("No orders selected for cancellation.");
+        }
+    });
+</script>

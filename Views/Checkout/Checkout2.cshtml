@@ -1,0 +1,412 @@
+﻿    @model _1FinalCapstone.Models.CheckoutViewModel
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h1 class="mb-4">Checkout Details</h1>
+            <form method="post" action="@Url.Action("Checkout2", "Checkout")">
+                @Html.AntiForgeryToken() <!-- Add AntiForgeryToken for security -->
+
+                <h2>User Information</h2>
+                <!-- Display alert message if present -->
+                @if (!string.IsNullOrEmpty(ViewBag.AlertMessage))
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.AlertMessage
+                    </div>
+                }
+
+                <div class="form-group">
+                    First Name
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Last Name
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <span class="text-muted">Follow format, House number, St name, Barangay, City</span>
+                        <br />
+                        <span class="text-muted">Note: We deliver around Quezon City and Manila only</span>
+                        <br />
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex. 2001 Varona St. Barangay 95 Tondo Manila" } })
+                        <span id="addressValidation" class="text-danger validation-error"></span>
+                        <!-- Add the notes below the address input -->
+                        <div class="form-group">
+                            @Html.Label("Additional Note", new { @class = "control-label" })
+                            <div>
+                                @Html.TextBox("AdditionalNote", null, new { @class = "form-control", @placeholder = "Add any additional notes here" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    Contact Number
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <hr />
+                <h2>Order Summary</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Item Price</th>
+                            <th>Item Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            // Define the order names and quantities as a list of strings
+                            var orderNamesWithQuantity = Model.SelectedCartItems?.Select(item => $"{item.OrderName} x Quantity:{item.OrderQuantity}")?.ToList() ?? new List<string>();
+
+                            var concatenatedOrderNames = string.Join(", ", orderNamesWithQuantity);
+
+
+
+                            int? orderPriceSum = 0; // Initialize a variable to hold the sum of OrderPrice
+                            int? totalPriceSum = 0; // Initialize a variable to hold the sum of TotalPrice
+                            int? orderQuantitySum = 0; // Initialize a variable to hold the sum of OrderQuantity
+                        }
+
+
+                        <input type="text" class="form-control" name="OrderName" value="@concatenatedOrderNames" readonly>
+
+
+                        @if (Model.SelectedCartItems != null)
+                        {
+                            foreach (var cartItem in Model.SelectedCartItems)
+                            {
+                                <tr>
+
+                                    <input type="hidden" class="form-control" name="CartId" value="@cartItem.CartId" readonly>
+
+
+                                    <input type="hidden" class="form-control" name="ProductId" value="@cartItem.ProductId" readonly>
+
+
+                                    <td style="display: none;">
+                                        <input type="hidden" name="Email" value="@cartItem.Email">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="Name" value="@cartItem.OrderName" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="OPrice" value="@cartItem.OrderPrice" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="OQuantity" value="@cartItem.OrderQuantity" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="Tprice" value="@cartItem.TotalPrice" readonly>
+                                    </td>
+                                </tr>
+
+                                // Add the current OrderPrice to the sum
+                                orderPriceSum += cartItem.OrderPrice;
+                                // Add the current TotalPrice to the sum
+                                totalPriceSum += cartItem.TotalPrice;
+                                // Add the current OrderQuantity to the sum
+                                orderQuantitySum += cartItem.OrderQuantity;
+
+                            }
+                        }
+
+                        <!-- Display the total sum of OrderPrice values below the table -->
+                        <tr>
+                            <td colspan="3">Total Order Price Sum:</td>
+                            <td>
+                                <input type="text" class="form-control" name="OrderPrice" value="@orderPriceSum" readonly>
+                            </td>
+                        </tr>
+
+                        <!-- Display the total sum of TotalPrice values below the table -->
+                        <tr>
+                            <td colspan="3">Grand Total:</td>
+                            <td>
+                                <input type="text" class="form-control" name="TotalPrice" value="@totalPriceSum" readonly>
+                            </td>
+                        </tr>
+                        <!-- Display the total sum of OrderQuantity values below the table -->
+                        <tr>
+                            <td colspan="3">Total Order Quantity Sum:</td>
+                            <td>
+                                <input type="text" class="form-control" name="OrderQuantity" value="@orderQuantitySum" readonly>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+                <hr />
+                <!-- Payment -->
+                <h2>Payment</h2>
+                <div class="form-group col-md-5">
+                    <label for="PaymentMode">Payment Method:</label>
+                    @Html.DropDownListFor(model => model.PaymentMode, new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Choose Payment Method", Value = "" },
+                        new SelectListItem { Text = "Gcash", Value = "Gcash" },
+                        new SelectListItem { Text = "PayMaya", Value = "PayMaya" }
+                    }, new { @class = "form-control", id = "PaymentMode", onchange = "showAccountFields(this); validatePaymentMode();" })
+                    <div class="text-danger validation-error" style="display:none;" id="paymentModeValidation"></div>
+                </div>
+
+
+                @if (Model.ShopAccounts != null)
+                {
+                    foreach (var shopAccount in Model.ShopAccounts)
+                    {
+                        <div id="accountFields" style="display: none;">
+                            <div class="form-group">
+                                <label for="AccountName">PayMaya Account Name:</label>
+                                <input type="text" class="form-control" value="@shopAccount.PaymayaAccountName" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="AccountNumber">PayMaya Account Number:</label>
+                                <input type="text" class="form-control" value="@shopAccount.PaymayaAccountNumber" readonly>
+                            </div>
+                        </div>
+
+                        <div id="accountFields2" style="display: none;">
+                            <div class="form-group">
+                                <label for="AccountName2">Gcash Account Name:</label>
+                                <input type="text" class="form-control" value="@shopAccount.GcashAccountName" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="AccountNumber2">Gcash Account Number:</label>
+                                <input type="text" class="form-control" value="@shopAccount.GcashAccountNumber" readonly>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="form-group">
+                    Reference Number
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.CustomerAccountNumber, new { @class = "form-control", required = "required", type = "text" })
+
+
+                        <span id="CustomerAccountValidation" class="text-danger validation-error"></span>
+
+                    </div>
+                </div>
+
+
+
+                <button type="button" name="submitButton" id="submitButton" class="btn btn-primary">Submit</button>
+
+
+                <a href="@Url.Action("CartM", "ShoppingCart")" class="btn btn-secondary">
+                    <span class="las la-home"></span> Back to List
+                </a>
+            </form>
+        </div>
+
+        <script>
+            // Internal JavaScript
+            function showAccountFields(select) {
+                var accountFields = document.getElementById("accountFields");
+                var accountFields2 = document.getElementById("accountFields2");
+
+                if (select.value === "PayMaya") {
+                    accountFields.style.display = "block";
+                    accountFields2.style.display = "none";
+                } else if (select.value === "Gcash") {
+                    accountFields.style.display = "none";
+                    accountFields2.style.display = "block";
+                } else {
+                    accountFields.style.display = "none";
+                    accountFields2.style.display = "none";
+                }
+
+                validatePaymentMode(); // Added to call the validation function when changing the payment mode
+            }
+
+            function validatePaymentMode() {
+                var paymentModeSelect = document.getElementById("PaymentMode");
+                var paymentModeValidation = document.getElementById("paymentModeValidation");
+                var submitButton = document.getElementById("submitButton");
+
+                if (paymentModeSelect.value === "") {
+                    paymentModeValidation.style.display = "block";
+                    paymentModeValidation.textContent = "Please choose a valid Payment Method (Gcash or PayMaya)";
+                    submitButton.disabled = true; // Disable submit button
+                } else {
+                    paymentModeValidation.style.display = "none";
+                    submitButton.disabled = false; // Enable submit button
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var paymentModeSelect = document.getElementById("PaymentMode");
+                paymentModeSelect.addEventListener("change", function () {
+                    showAccountFields(this);
+                    validatePaymentMode();
+                });
+
+                var form = document.querySelector('.container form');
+                form.addEventListener("submit", function (event) {
+                    var paymentModeSelect = document.getElementById("PaymentMode");
+                    if (paymentModeSelect.value === "") {
+                        event.preventDefault(); // Prevent form submission
+                        validatePaymentMode();
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            // Function to calculate and update the total amount as an integer
+            function calculateTotal() {
+                var total = 0;
+                var subtotalElements = document.querySelectorAll('tbody tr td:nth-child(4)');
+
+                // Loop through all the Subtotal elements in the table
+                subtotalElements.forEach(function (element) {
+                    total += parseInt(element.textContent || 0); // Parse the text content as an integer and add to total
+                });
+
+                // Update the total amount in the span element
+                document.getElementById('totalAmount').textContent = 'Total: ' + total; // Display total as an integer
+            }
+
+            // Function to show an error message for payment method
+            function showPaymentMethodError() {
+                var paymentModeValidation = document.getElementById("paymentModeValidation");
+                paymentModeValidation.style.display = "block";
+                paymentModeValidation.textContent = "Please Choose a valid Payment Method (Gcash or PayMaya)";
+            }
+
+            // Call the calculateTotal function when the page loads and whenever the payment mode changes
+            document.addEventListener("DOMContentLoaded", function () {
+                calculateTotal(); // Initial calculation
+
+                var paymentModeSelect = document.getElementById("PaymentMode");
+                paymentModeSelect.addEventListener("change", function () {
+                    showAccountFields(this);
+                    validatePaymentMode();
+                    calculateTotal(); // Recalculate when the payment mode changes
+                });
+
+                var form = document.querySelector('.container form');
+                form.addEventListener("submit", function (event) {
+                    var paymentModeSelect = document.getElementById("PaymentMode");
+                    if (paymentModeSelect.value === "") {
+                        event.preventDefault(); // Prevent form submission
+                        showPaymentMethodError(); // Show payment method error
+                    }
+                });
+            });
+        </script>
+
+        <!-- Add this script block before the closing </body> tag -->
+        <script>
+
+            function showAlert() {
+                var addressInput = document.querySelector('[name="Address"]');
+                var paymentMode = document.getElementById("PaymentMode").value;
+                var customerAccountNumber = document.querySelector("#CustomerAccountNumber").value;
+
+                var addressValidation = document.getElementById("addressValidation");
+                var paymentModeValidation = document.getElementById("paymentModeValidation");
+                var customerAccountValidation = document.getElementById("CustomerAccountValidation");
+
+                // Initialize a flag to track if any validation errors are found
+                var hasErrors = false;
+
+                // Regular expression to check if the account number starts with "09"
+                var accountNumberPattern = /^.{12,13}$/;
+
+                // Check if the Customer Account Number is empty or doesn't match the pattern
+                if (customerAccountNumber.trim() === "" || !accountNumberPattern.test(customerAccountNumber)) {
+                    customerAccountValidation.textContent = "Indicate Valid Reference Number";
+                    hasErrors = true;
+                } else {
+                    customerAccountValidation.textContent = ""; // Clear the validation message
+                }
+
+                // Check if the payment mode is empty
+                if (paymentMode === "") {
+                    validatePaymentMode();
+                    hasErrors = true;
+                } else {
+                    paymentModeValidation.textContent = ""; // Clear the validation message
+                }
+
+                // Check if the address field is empty
+                if (!addressInput.value.trim()) {
+                    addressValidation.textContent = "Address must be indicated.";
+                    hasErrors = true;
+                } else {
+                    addressValidation.textContent = ""; // Clear the validation message
+                }
+
+                // If any errors are found, prevent form submission
+                if (hasErrors) {
+                    return;
+                }
+
+                // If no errors are found, proceed with the form submission
+                var confirmationMessage = "Your payment is to be validated. Do you want to proceed? \n\n";
+
+                // Use the confirm() function to show a confirmation dialog
+                var confirmed = confirm(confirmationMessage);
+
+                if (confirmed) {
+                    // The user clicked "OK," proceed with the form submission
+                    document.querySelector('.container form').submit();
+                } else {
+                    // The user clicked "Cancel," do nothing or provide feedback as needed
+                }
+            }
+
+            // Attach the showAlert function to the form's submit button click event
+            document.addEventListener("DOMContentLoaded", function () {
+                var submitButton = document.getElementById("submitButton");
+                submitButton.addEventListener("click", function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+                    showAlert();
+                });
+            });
+
+        </script>
+
+
+
+
+    </body>
+    </html>

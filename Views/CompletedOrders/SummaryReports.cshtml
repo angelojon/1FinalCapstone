@@ -1,0 +1,206 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.CompletedOrders>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SummaryReports</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333; /* Set title color to a shade of blue */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: justify; /* Center the content */
+        }
+
+        th {
+            background-color: #007bff;
+            color: #333;
+        }
+
+        .totals {
+            float: right;
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .date-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .Printbtn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #printButton {
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        .logo-image {
+            width: 200px; /* Adjust the width as needed */
+            height: auto; /* Automatically adjust the height to maintain the aspect ratio */
+            margin-top: -50px;
+            margin-bottom: -70px;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>M.A.M</h1>
+        <h2>215 Tandang Sora Banlat Quezon City</h2>
+        <h2>Summary Sales Report</h2>
+        <img src="/MAM Logo.png" class="logo-image" />
+    </div>
+
+    <div class="content">
+        <div class="date-info">
+            <h5><b>@DateTime.Now</b></h5>
+            <!-- Additional receipt information can be added here -->
+        </div>
+        <div class="totals">
+            <h6>Total Revenue: ₱@String.Format("{0:N2}", ViewBag.TotalRevenue)</h6>
+            <h6>Total Investment: ₱@String.Format("{0:N2}", ViewBag.TotalInvestment)</h6>
+            <h6>Goal to Earn: ₱@String.Format("{0:N2}", ViewBag.GoalToEarn)</h6>
+            <h6>Earned: ₱@String.Format("{0:N2}", ViewBag.Earned)</h6>
+        </div>
+
+        <br />
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderQuantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompletedDate)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderQuantity)
+                    </td>
+                    <td>
+                        ₱@String.Format("{0:N2}", item.TotalPrice)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompletedDate)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="Printbtn">
+            <button id="printButton" class="btn btn-primary btn-lg" onclick="printPage()">
+                <i class="fa fa-print"></i> Print Sales
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Disable Ctrl+P
+        document.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+
+            }
+        });
+
+        function printPage() {
+            // Get the button element
+            var printButton = document.getElementById('printButton');
+
+            // Store the current position before hiding
+            var originalDisplay = printButton.style.display;
+            var originalPosition = printButton.style.position;
+            var originalTop = printButton.style.top;
+
+            // Hide the button before printing
+            printButton.style.display = 'none';
+
+            // Use the browser's print function
+            window.onbeforeprint = function () {
+                // This event is triggered before the print dialog is shown
+                console.log("Printing...");
+            };
+
+            window.onafterprint = function () {
+                // This event will be triggered when the print dialog is closed (either by printing or cancelling)
+                // Show the button after the printing is done or canceled
+                printButton.style.display = originalDisplay;
+
+                // Restore the original position
+                printButton.style.position = originalPosition;
+                printButton.style.top = originalTop;
+
+                // Clean up: remove the onbeforeprint and onafterprint event handlers
+                window.onbeforeprint = null;
+                window.onafterprint = null;
+            };
+
+            window.print();
+        }
+    </script>
+</body>
+</html>

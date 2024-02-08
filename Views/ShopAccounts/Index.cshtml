@@ -1,0 +1,50 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.ShopAccounts>
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <!-- Add Bootstrap CSS -->
+
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container">
+        <h1>Shop Accounts</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Gcash Account Name</th>
+                    <th>Gcash Account Number</th>
+                    <th>Paymaya Account Name</th>
+                    <th>Paymaya Account Number</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.GcashAccountName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GcashAccountNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymayaAccountName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymayaAccountNumber)</td>
+                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.AccountId }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

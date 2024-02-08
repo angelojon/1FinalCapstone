@@ -1,0 +1,45 @@
+﻿@model List<_1FinalCapstone.Models.CartItemsBuilder>
+<h2>Your Cart for Builder</h2>
+<table>
+    <tr>
+        <th>BuilderName</th>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>BuilderPrice</th>
+        <th>SubTotal</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.BuilderName</td>
+            <td>
+                <!-- Display the product image (Budimage1) -->
+
+
+                @if (!string.IsNullOrEmpty(item.ImageBuild.Budimage1))
+                {
+                    <img src="data:image;base64,@item.ImageBuild.Budimage1" alt="@item.BuilderName" style="max-height: 100px;" />
+                }
+
+            </td>
+            <td>
+                <form method="post" action="@Url.Action("UpdateCartItemQuantity", "CustomerBuilder")">
+                    <!-- Add the cartItemId as a hidden input -->
+                    <input type="hidden" name="cartItemId" value="@item.CartBuilderId" />
+                    <input type="number" name="quantity" value="@item.QuantityBuilder" />
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>@item.BuilderPrice</td>
+            <td>@item.SubtotalBuilder</td>
+            <td>
+                <!-- Button to delete the item -->
+                <form method="post" action="@Url.Action("DeleteCartItems", "CustomerBuilder")">
+                    <input type="hidden" name="cartItemId" value="@item.CartBuilderId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

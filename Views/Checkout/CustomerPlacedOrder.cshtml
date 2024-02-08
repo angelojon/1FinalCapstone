@@ -1,0 +1,178 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* To prevent horizontal scrollbars */
+        }
+
+        /* Make the container full-width */
+        .container {
+            width: 100%;
+        }
+
+        /* Remove padding from columns */
+        .col-md-6 {
+            padding: 0;
+        }
+
+        /* Adjust the table width */
+        table {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .form-control {
+            width: 50px !important;
+            height: 30px;
+            font-family: "Inter", sans-serif;
+        }
+
+        .service {
+            line-height: 1.5;
+        }
+
+            .service .service-icon {
+                border-radius: 10px;
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 50px;
+                flex: 0 0 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                background: #3b5d50;
+                margin-right: 20px;
+                color: #ffffff;
+            }
+
+        textarea {
+            height: auto !important;
+        }
+
+        .site-blocks-table {
+            overflow: auto;
+        }
+
+            .site-blocks-table .product-thumbnail {
+                width: 200px;
+            }
+
+            .site-blocks-table .btn {
+                padding: 2px 10px;
+            }
+
+            .site-blocks-table thead th {
+                padding: 30px;
+                text-align: center;
+                border-width: 0px !important;
+                vertical-align: middle;
+                color: rgba(0, 0, 0, 0.8);
+                font-size: 18px;
+                white-space: nowrap; /* Prevent text from wrapping */
+                overflow: hidden; /* Hide overflowed text */
+                text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+            }
+
+            .site-blocks-table td {
+                padding: 20px;
+                text-align: center;
+                vertical-align: middle;
+                color: rgba(0, 0, 0, 0.8);
+            }
+
+            .site-blocks-table tbody tr:first-child td {
+                border-top: 1px solid #3b5d50 !important;
+            }
+
+            .site-blocks-table .btn {
+                background: none !important;
+                color: #000000;
+                border: none;
+                height: auto !important;
+            }
+
+        .site-block-order-table th {
+            border-top: none !important;
+            border-bottom-width: 1px !important;
+        }
+
+        .site-block-order-table td, .site-block-order-table th {
+            color: #000000;
+        }
+
+        .couponcode-wrap input {
+            border-radius: 10px !important;
+        }
+
+        .text-primary {
+            color: #3b5d50 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container mt-5 text-center">
+
+            <header>
+                <h2 class="mb-4">Placed Orders</h2>
+                <div class="d-flex justify-content-end mb-2">
+                    <a href="~/Checkout/CustomerPlacedOrder" class="btn btn-primary mx-2">Placed Orders</a>
+                    <a href="~/Checkout/CustomerAcceptedOrder" class="btn btn-primary mx-2">Accepted Orders</a>
+                    <a href="~/Checkout/CustomerHistory" class="btn btn-primary mx-2">Order History</a>
+                </div>
+            </header>
+
+            <main>
+                <section class="order-history">
+                    <div class="site-blocks-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order Name</th>
+                                    <th>Order Quantity</th>
+                                    <th>Order Price</th>
+                                    <th>Total Price</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var StatusItem in Model.CheckoutTable)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => StatusItem.OrderName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => StatusItem.OrderQuantity)
+                                        </td>
+                                        <td>
+                                            ₱@string.Format("{0:n0}", StatusItem.OrderPrice).00
+                                        </td>
+                                        <td>
+                                            ₱@string.Format("{0:n0}", StatusItem.TotalPrice).00
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => StatusItem.OrderStatus)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+        </div>
+</body>
+</html>

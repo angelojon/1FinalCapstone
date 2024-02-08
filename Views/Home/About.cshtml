@@ -1,0 +1,255 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Oswald', sans-serif !important;
+        overflow-x: hidden;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    p {
+        color: black;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    /* Pastel Colors */
+    .pastel-white {
+        background-color: #FFFFFF; /* Light Blue */
+    }
+
+    .pastel-try {
+        background-color: #DADDB1; /* Light Blue */
+    }
+
+    /* Section Styles */
+    .section {
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading Styles */
+    h1 {
+        color: #333;
+    }
+
+    /* List Styles */
+    ul {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+
+    /* Media Styles */
+    .media {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .customer-feedback-section {
+        text-align: center;
+    }
+
+    .customer-feedback-content {
+        text-align: center;
+    }
+
+    .carousel-caption {
+        margin-right: 50px; /* Change this value to adjust the leftward movement */
+    }
+
+    /* Add this CSS for the carousel fade animation */
+    .carousel.fade .carousel-inner .carousel-item {
+        transition: opacity 1s ease-in-out;
+    }
+
+        .carousel.fade .carousel-inner .carousel-item.active {
+            opacity: 1;
+        }
+
+            .carousel.fade .carousel-inner .carousel-item-next,
+            .carousel.fade .carousel-inner .carousel-item-prev,
+            .carousel.fade .carousel-inner .carousel-item.active.left,
+            .carousel.fade .carousel-inner .carousel-item.active.right {
+                opacity: 0;
+            }
+</style>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> About M.A.M. Shop</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add this line in the <head > section to include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <section class="section pastel-white">
+        <div class="container">
+            <h1 class="text-center" style="font-size: 36px; font-weight: bold; color: #333;">Welcome to M.A.M. Shop</h1>
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <img src="/MAM Logo.png" class="img-fluid" alt="M.A.M. Shop Logo" style="border: 1px solid #ccc; border-radius: 10px;">
+                </div>
+                <div class="col-lg-6" style="font-size: 18px; color: #555;">
+                    <p>M.A.M. Shop - Your Premier Bike Destination</p>
+                    <p>Since 2009, M.A.M. Shop has been your trusted source for high-quality bikes, equipment, and parts. We're a family-owned business located at 170 A. Banlat Road, Tandang Sora, Quezon City.</p>
+                    <p>At M.A.M. Shop, we take pride in offering:</p>
+                    <ul style="list-style-type: square; margin-left: 20px;">
+                        <li>Wide Selection of Bicycles</li>
+                        <li>Top-Notch Accessories</li>
+                        <li>Expert Repairs and Maintenance Services</li>
+                        <li>Personalized Advice for Biking Enthusiasts</li>
+                    </ul>
+                    <p>Experience the joy of cycling with M.A.M. Shop. We're more than a store; we're your biking companion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section pastel-white">
+        <div class="container">
+            <h1 class="text-center" style="font-size: 36px; font-weight: bold; color: #333;">Customer Feedback</h1>
+            <div class="row mt-4">
+                <div class="col-lg-6 mx-auto">
+                    <!-- Add mx-auto to center the content -->
+                    <!-- Customer feedback content here -->
+                    <p style="font-size: 18px; font-weight: bold; color: #555; text-align: center; margin-top: 20px;">
+                        We value our customers' opinions. Here's what some of them have to say about their experience with M.A.M. Shop:
+                    </p>
+                    <!-- Add customer feedback or reviews here -->
+                    <div id="customer-feedback-carousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+                        <!-- Set data-interval to the desired time in milliseconds (e.g., 5000ms = 5 seconds) -->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://scontent.fmnl30-3.fna.fbcdn.net/v/t1.6435-9/138831769_235711168148705_1360893458558985236_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=X7wyDHhpscUAX-aygfs&_nc_ht=scontent.fmnl30-3.fna&oh=00_AfBQYJ1-wZVZuOEGhOEENAO396s8_Bw8m-XRNgxfjIs7FA&oe=655728F8" alt="Customer Feedback Image 2" height="500" width="500">
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="carousel-caption">
+                                    <p><strong>John Doe:</strong> "I found the perfect bike at M.A.M. Shop. Great selection and friendly staff!"</p>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <img src="https://scontent.fmnl30-1.fna.fbcdn.net/v/t1.6435-9/96080809_101828711536952_6655796821589229568_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=Ugk3xDoiv_EAX_bBi8K&_nc_ht=scontent.fmnl30-1.fna&oh=00_AfB_pHxSJduOLgD1zWoOVHSPGF02-WKcMa-x0eail9doaA&oe=65573817" alt="Customer Feedback Image 2" height="500" width="500">
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="carousel-caption">
+                                    <p><strong>Jane Smith:</strong> "The team at M.A.M. Shop is knowledgeable and helped me choose the right accessories."</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://scontent.fmnl30-3.fna.fbcdn.net/v/t1.6435-9/95879089_101847694868387_999900740497440768_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=H736_kfNbr4AX8svTBK&_nc_ht=scontent.fmnl30-3.fna&oh=00_AfCHs7yH0Vm7YYN0QJ5TU1yrrZ16XeTmNxZNAyGtolB9Kg&oe=6557182A" alt="Customer Feedback Image 3" height="500" width="500">
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="carousel-caption">
+                                    <p><strong>Lucky Manzano:</strong> "The team at M.A.M. Shop is knowledgeable and helped me choose the right accessories."</p>
+                                </div>
+                            </div>
+                            <!-- Add more slides with images and feedback -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team Section -->
+    <section class="section pastel-white">
+        <div class="container">
+            <h1 class="text-center" style="font-size: 36px; font-weight: bold; color: #333;">Meet Our Dedicated Team</h1>
+            <div class="row mt-4">
+                <div class="col-lg-4">
+                    <div class="media" style="border: 1px solid #ccc; border-radius: 10px; padding: 37px; text-align: center;">
+                        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/370207207_197752030016003_2815538640924443051_n.jpg?stp=dst-jpg_p320x320&_nc_cat=101&ccb=1-7&_nc_sid=510075&_nc_ohc=zcSEUXtJWEoAX9DPfiy&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQHzl7iGqhwQki_Wtc7Nitbq9Pn4kdn67frdJWXlgssPg&oe=65571B87" alt="Kurt Manuel" style="border: 1px solid #ccc; width: 200px; height: 250px; object-fit: cover;">
+                        <div class="media-body" style="font-size: 20px; color: #555; margin-top: 10px; margin-left: 10px">
+                            <h5 class="mt-0" style="font-weight: bold; margin-bottom: 5px;">Kurt Manuel</h5>
+                            <p style="font-style: italic;">Lead Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="media" style="border: 1px solid #ccc; border-radius: 10px; padding: 37px; text-align: center;">
+                        <img src="~/gee.png" alt="gee" style="border: 1px solid #ccc; width: 200px; height: 250px; object-fit: cover;" />
+                        <div class="media-body" style="font-size: 20px; color: #555; margin-top: 10px;  margin-left: 10px ">
+                            <h5 class="mt-0" style="font-weight: bold; margin-bottom: 5px;">Angelo Macaldo</h5>
+                            <p style="font-style: italic;">Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="media" style="border: 1px solid #ccc; border-radius: 10px; padding: 37px; text-align: center;">
+                        <img src="https://scontent.fmnl30-1.fna.fbcdn.net/v/t1.15752-9/393873347_897252448657271_1378254361670105826_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=WRy0TLTgz0AAX_LhKdx&_nc_ht=scontent.fmnl30-1.fna&oh=03_AdRhUzvMkWMB0RllrleDu4mO8ZOHSgaxAFnOMxrDBKqVgg&oe=65572145" alt="Raph Legaspi" style="border: 1px solid #ccc; width: 200px; height: 250px; object-fit: cover;">
+                        <div class="media-body" style="font-size: 20px; color: #555; margin-top: 10px; margin-left: 10px">
+                            <h5 class="mt-0" style="font-weight: bold; margin-bottom: 5px;">Raphael Legaspi</h5>
+                            <p style="font-style: italic;">Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section pastel-white">
+        <div class="container">
+            <h1 class="text-center" style="font-size: 36px; font-weight: bold; color: #333;">Get in Touch with us</h1>
+            <div class="row mt-4">
+                <div class="col-lg-6 contact-info">
+                    <div class="contact-card">
+                        <h2>Contact Information</h2>
+                        <p><i class="fas fa-phone-alt"></i> <strong>Contact Number:</strong> +123-456-7890</p>
+                        <p><i class="far fa-envelope"></i> <strong>Email:</strong> info@mamshop.com</p>
+                        <p><i class="fas fa-phone"></i> <strong>Telephone Number:</strong> (123) 456-7890</p>
+                        <p><i class="fab fa-facebook"></i> <strong>Connect with us on:</strong> <a href="https://www.facebook.com/mamshop" target="_blank">Facebook</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-6 map-container">
+                    <!-- Embed Google Maps using an iframe -->
+                    <iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4648188387224!2d121.03830101476484!3d14.650759980818055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b58c07ff0629%3A0x57f9f3f76d4ed176!2s170%20A.%20Banlat%20Rd%2C%20Tandang%20Sora%2C%20Quezon%20City!5e0!3m2!1sen!2sph!4v1626746921136!5m2!1sen!2sph" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

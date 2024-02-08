@@ -1,0 +1,27 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    ViewBag.Title = "Order Confirmation";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <div style="text-align: center; padding-top: 100px;">
+        <h1>Your Order Has Been Placed!</h1>
+        <p>Thank you for your order, @Model.FirstName</p>
+        <p>An email confirmation has been sent to: @Model.Email</p>
+        <p>Item Ordered: @Model.OrderName</p>
+        <p>Order Quantity: @Model.OrderQuantity</p>
+        <p>Order Product Price: ₱ @Model.OrderPrice"</p>
+        <p>Your total order amount: ₱ @Model.TotalPrice"</p>
+        <p>Delivery address: @Model.Address</p>
+        <p>Contact number: @Model.ContactNumber</p>
+    </div>
+</body>
+</html>

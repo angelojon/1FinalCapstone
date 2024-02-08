@@ -1,0 +1,254 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Builder Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            overflow: hidden;
+        }
+
+        .left-section {
+            flex: 1;
+            margin-left: -250px;
+        }
+
+        .right-section {
+            width: 300px; /* Adjust the width as needed */
+            position: relative;
+            right: 50px;
+        }
+
+        .builderM {
+            color: black;
+            position: relative;
+            left: 200px;
+        }
+
+            .builderM img {
+                position: relative;
+                max-width: 60%;
+                max-height: 60%;
+                margin-left: auto; /* Move the image to the right by setting margin-left to auto */
+                left: 160px; /* Optional: If you want to further adjust the position to the right */
+            }
+
+
+            .builderM h2 {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 30px;
+                color: black; /* Set the text color */
+                /* Add other font styles like text-decoration, font-weight, etc. */
+            }
+
+            .builderM h3 {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 30px;
+                color: black;
+            }
+
+            .builderM p {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 20px;
+                color: black;
+            }
+
+                .builderM p.price {
+                    margin-left: 70px;
+                    position: relative;
+                    top: -80px;
+                    font-size: 27px;
+                    color: black; /* Custom color for price */
+                    font-weight: bold;
+                }
+
+        /* Add these styles to display radio buttons side by side */
+        .form-check {
+            display: inline-block; /* Change to inline-block for side-by-side display */
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .custom-inline {
+            display: inline-block;
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .blackbg {
+            background-image: url('../../whitebg.jpg');
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-attachment: fixed; /* Optional: Keeps the image fixed while scrolling */
+        }
+
+        .rounded-container {
+            width: 60%; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the container horizontally */
+            border-radius: 10px; /* Adjust the value to control the roundness */
+            background-color: rgb(128, 128, 128, .5); /* Adjust the background color and opacity */
+            padding: 20px; /* Add padding to create space inside the container */
+            position: relative; /* Position relative to move it */
+            right: 250px;
+            bottom: 650px; /* Adjust the top value to move it lower */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blackbg" />
+    <div id="4thpartialContent">
+        <div id="mainContent" class="container">
+            <div class="col-lg-12 col-md-12">
+                @foreach (var bikeBuilder in Model.BikeBuilders)
+                {
+                    if (bikeBuilder.BuilderId == 19 || bikeBuilder.BuilderId == 20)
+                    {
+                        <div class="builderM mb-4" data-builderid="@bikeBuilder.BuilderId">
+                            @if (!string.IsNullOrEmpty(bikeBuilder.Budimage1))
+                            {
+                                <img src="data:image/jpeg;base64, @bikeBuilder.Budimage1" alt="Image 3" class="img-fluid" />
+                            }
+                        </div>
+
+                        <div class="builderM mb-4" data-builderid="@bikeBuilder.BuilderId">
+                            <br />
+                            <h2>@bikeBuilder.StepTitle</h2>
+                            <h3>@bikeBuilder.BuilderTitle1</h3><br />
+                            <p>@bikeBuilder.BuilderDescription1</p>
+                            <p>Price: ₱@bikeBuilder.Bprice1</p>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="rounded-container">
+                    <div id="builder34Buttons">
+                        <form>
+                            <div class="form-check custom-inline">
+
+                                @{
+                                    var builder1Image1 = Model.BikeBuilders.FirstOrDefault(bikeBuilder => bikeBuilder.BuilderId == 19);
+                                }
+                                @if (builder1Image1 != null && !string.IsNullOrEmpty(builder1Image1.Budimage1))
+                                {
+                                    <img src="data:image/jpeg;base64, @builder1Image1.Budimage1" alt="Image 1" class="img-fluid" />
+                                }
+                                <input type="radio" class="form-check-input" name="builderSelection6" value="19" checked />
+                                <label class="form-check-label">Wheelset 1</label>
+
+                                @{
+                                    var builder1Image2 = Model.BikeBuilders.FirstOrDefault(bikeBuilder => bikeBuilder.BuilderId == 20);
+                                }
+                                @if (builder1Image2 != null && !string.IsNullOrEmpty(builder1Image2.Budimage1))
+                                {
+                                    <img src="data:image/jpeg;base64, @builder1Image2.Budimage1" alt="Image 1" class="img-fluid" />
+                                }
+                                <input type="radio" class="form-check-input" name="builderSelection6" value="20" />
+                                <label class="form-check-label">Wheelset 2</label>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2" id="loadDataButton6">Next Step</button>
+                            <button id="goBackButton" onclick="goBackToBuilder910()" class="btn btn-primary mt-2">Go Back</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="partialViewContainer1"></div>
+    <script>
+        $(document).ready(function () {
+            // Function to hide/show builder divs based on the selected radio button
+            function toggleBuilderDivs(selectedBuilder) {
+                $('.builderM').hide(); // Hide all builder divs
+                $('.builderM[data-builderid="' + selectedBuilder + '"]').show(); // Show the selected builder div
+            }
+
+            // Function to initialize the page with the initially checked radio button
+            function initializePage() {
+                // Handle radio button change event
+                $('input[name="builderSelection6"]').change(function () {
+                    var selectedBuilder = $(this).val();
+
+                    // Toggle builder divs to show/hide based on the selected radio button
+                    toggleBuilderDivs(selectedBuilder);
+                });
+
+                // Initially hide all builder divs except the one corresponding to BuilderId 7 (since it's checked)
+                toggleBuilderDivs(19);
+            }
+
+            // Function to load the partial view
+            function loadPartialView(builderId) {
+                // Hide various elements on the page
+                $('input[name="builderSelection6"]').hide();
+                $('#loadDataButton6').hide();
+                $('#goBackButton').hide();
+                $('#4thpartialContent').hide(); // Changed the ID to match the HTML
+
+                // Hide all .builderM elements
+                $('.builderM').hide();
+
+                var partialViewUrl = "/CustomerBuilder/LoadPartialView3?builderId=" + builderId;
+
+                $.ajax({
+                    url: partialViewUrl,
+                    type: "GET",
+                    success: function (data) {
+                        $("#partialViewContainer1").html(data);
+                    },
+                    error: function () {
+                        alert("Failed to load partial view.");
+                    }
+                });
+            }
+
+            // Handle button click event to load the partial view
+            $('#loadDataButton6').click(function () {
+                var selectedBuilder = $('input[name="builderSelection6"]:checked').val();
+
+                // Load the partial view
+                loadPartialView(selectedBuilder);
+            });
+
+            // Call the initialization function when the document is ready
+            initializePage();
+        });
+    </script>
+    <script>
+        function goBackToBuilder910() {
+            // Hide the current content (_Builder1516) and show _Builder78
+            $('#4thpartialContent').hide();
+            $('#partialViewContainer1').html(''); // Clear the loaded partial view, if any
+            $('#TrdpartialContent').show(); // Show the content of _Builder78
+            $('.builderM[data-builderid="9"]').show();
+            $('#loadDataButton2').show(); // Assuming you want to show the Load Data button of _Builder78
+            $('#goBackButton').show();
+
+            // Apply CSS styles to make radio buttons visible
+            $('input[name="builderSelection3"]').css('display', 'inline-block');
+        }
+    </script>
+
+</body>
+</html>

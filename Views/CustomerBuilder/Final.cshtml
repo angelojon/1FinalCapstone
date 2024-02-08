@@ -1,0 +1,267 @@
+﻿@model _1FinalCapstone.Models.Merge
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Step</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif !important;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .left-section {
+            flex: 1;
+            margin-left: -250px;
+        }
+
+        .right-section {
+            width: 300px; /* Adjust the width as needed */
+            position: relative;
+            right: 50px;
+        }
+
+        .builderM {
+            color: black;
+            position: relative;
+        }
+
+        /* Style for buttons */
+
+        .button-container {
+            text-align: center; /* Horizontally center the buttons */
+            display: flex; /* Change to inline-block to align horizontally */
+            justify-content: center;
+            align-items: center; /* Vertically center the buttons */
+        }
+
+            /* Add margin to the buttons to create space between them */
+            .button-container a,
+            .button-container button {
+                margin: 0 10px; /* Adjust the horizontal margin as needed */
+            }
+
+
+
+        .builderM img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+
+        .builderM h2 {
+            margin-left: 70px;
+            position: relative;
+            top: -80px;
+            font-size: 30px;
+            color: black; /* Set the text color */
+            /* Add other font styles like text-decoration, font-weight, etc. */
+        }
+
+        .builderM h3 {
+            text-align: center;
+            position: relative;
+            top: -20px;
+            font-size: 30px;
+            color: black;
+        }
+
+        .builderM p {
+            margin-left: 70px;
+            position: relative;
+            top: -80px;
+            font-size: 20px;
+            color: black;
+        }
+
+            .builderM p.price {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 27px;
+                color: black; /* Custom color for price */
+                font-weight: bold;
+            }
+
+        /* Add these styles to display radio buttons side by side */
+        .form-check {
+            display: inline-block; /* Change to inline-block for side-by-side display */
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .custom-inline {
+            display: inline-block;
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .blackbg {
+            background-image: url('../../whitebg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-attachment: fixed; /* Optional: Keeps the image fixed while scrolling */
+        }
+
+        .rounded-container {
+            width: 60%; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the container horizontally */
+            border-radius: 10px; /* Adjust the value to control the roundness */
+            background-color: rgb(128, 128, 128, .5); /* Adjust the background color and opacity */
+            padding: 20px; /* Add padding to create space inside the container */
+            position: relative; /* Position relative to move it */
+            right: 250px;
+            bottom: 650px; /* Adjust the top value to move it lower */
+        }
+
+        .centered-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="blackbg" />
+    <div id="mainContent" class="container">
+        <div class="col-lg-12 col-md-12">
+            @if (Session["SelectedBuilderId"] != null)
+            {
+                int selectedBuilderId = (int)Session["SelectedBuilderId"];
+                var selectedBuilder = Model.BikeBuilders.FirstOrDefault(b => b.BuilderId == selectedBuilderId);
+
+                if (selectedBuilder != null)
+                {
+                    <div class="builderM mb-4">
+                        <h2>Builder ID: @selectedBuilder.BuilderId</h2>
+                        <br />
+                        <h3>Total Price: ₱@string.Format("{0:N2}", selectedBuilder.Bprice1)</h3>
+
+
+                        @if (!string.IsNullOrEmpty(selectedBuilder.Budimage1))
+                        {
+                            <img src="data:image/jpeg;base64, @selectedBuilder.Budimage1" alt="Image 1" class="img-fluid" />
+                        }
+                    </div>
+
+                    <br />
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="descriptionModalLabel">Builder Description</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Display the builder's description here -->
+                                    @if (selectedBuilder != null)
+                                    {
+                                        string formattedDescription = selectedBuilder.BuilderDescription1.Replace(",", ",<br>");
+                                        <p>@Html.Raw(formattedDescription)</p>
+                                    }
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Modal for Builder Title -->
+                    <div class="modal fade" id="titleModal" tabindex="-1" role="dialog" aria-labelledby="titleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="titleModalLabel">Price Breakdown</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Display the builder's title here -->
+                                    @if (selectedBuilder != null)
+                                    {
+                                        string formattedTitle = selectedBuilder.BuilderTitle1.Replace("),", ")<br>");
+                                        <p>@Html.Raw(formattedTitle)</p>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <!-- First "Checkout" button inside the scope -->
+                    <div class="button-container">
+
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary custom-home-button" style="margin: 10px;" onclick="return confirm('Are you sure you want to go back? Your build will not be saved.');">
+                            <i class="fas fa-home"></i>
+                        </a>
+
+                        <a href="@Url.Action("Checkout3", "Checkout", new {
+                        builderId = selectedBuilder.BuilderId,
+                        stepTitle = selectedBuilder.StepTitle,
+                        builderTitle1 = selectedBuilder.BuilderTitle1,
+                        ordername = selectedBuilder.BuilderDescription1,
+                        orderprice = selectedBuilder.Bprice1})" class="btn btn-primary">Checkout</a>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal">View Description</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#titleModal">Price Breakdown</button>
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                }
+                else
+                {
+                    <p class="alert alert-danger">Selected builder not found.</p>
+                }
+            }
+            else
+            {
+                <p class="alert alert-warning">No builder selected.</p>
+            }
+
+            <!-- Second "Checkout" button outside the scope -->
+
+        </div>
+    </div>
+
+
+</body>
+</html>

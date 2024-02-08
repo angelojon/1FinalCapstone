@@ -1,0 +1,148 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "DisableAccounts";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #333;
+        background-color: #fff;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+</style>
+<br />
+
+
+<h2><b>Disabled Accounts</b></h2>
+<br />
+<!-- Search input field -->
+<div class="mb-2 d-flex justify-content-between">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search by User Name" />
+    @Html.ActionLink("Go back to Accounts Listing", "Index", null, new { @class = "btn btn-primary btn-margin" })
+</div>
+
+
+<table>
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Email Confirmed
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Contact Number
+        </th>
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailConfirmed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <form method="post" action="@Url.Action("UnDisableUser", "AspNetUsers")">
+                    @Html.Hidden("userEmail", item.Email)  @* Use userEmail instead of userId *@
+
+                    <button type="submit" class="btn btn-danger">Enable</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+@section scripts {
+    <script>
+        // Function to filter the table rows based on the search input
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            // Handle the "Disable" button click
+            $(".btn-danger").click(function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                var confirmation = confirm("Are you sure you want to Undisable the account?");
+                if (confirmation) {
+                    var userEmail = $(this).closest("form").find("input[name='userEmail']").val(); // Get the user's email
+                    var form = $(this).closest("form"); // Find the parent form
+                    form.find("input[name='userEmail']").val(userEmail); // Set the user's email
+                    form.submit(); // Submit the form
+                }
+            });
+        });
+    </script>
+}

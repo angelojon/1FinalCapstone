@@ -1,0 +1,76 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.BikeBuilder>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final 2</title>
+    <!-- Add any necessary CSS or meta tags here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="~/css/StyleSheet2.css" rel="stylesheet" />
+
+</head>
+<body>
+    @foreach (var item in Model)
+    {
+        <div class="container py-4 my-4 mx-auto d-flex flex-column">
+            <div class="header">
+                <div class="row r1">
+                    <div class="col-md-9 abc">
+
+                        <h1> @Html.DisplayFor(modelItem => item.BuilderTitle1)</h1>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container-body mt-4">
+                <div class="row r3">
+                    <div class="col-md-5 p-0 klo">
+                        <ul>
+
+
+                            <li>@Html.DisplayFor(modelItem => item.BuilderDescription1)</li>
+                            <li>  <b> @Html.DisplayFor(modelItem => item.Bprice1)₱</b></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="col-md-7">
+                        <img data-image="red" class="active" src="data:image/png;base64,@item.Budimage1" width="90%" height="95%" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer d-flex flex-column mt-5">
+                <div class="row r4">
+                    <div class="col-md-2 myt ">
+                        <button type="button" class="btn btn-info btn-lg" id="return-btn">
+                            <a href="Step2Fork3" class="btn btn-info btn-lg" id="return-btn">
+                                <i class="fas fa-arrow-left"></i> Go Back
+                            </a>
+                        </button>
+                    </div>
+
+
+                    <!-- Replace this button code -->
+                    <div class="col-md-2 myt">
+                        <form method="post" action="@Url.Action("AddToBuilder", "CustomerBuilder")">
+                            <input type="hidden" name="builderId" value="@item.BuilderId" />
+                            <button type="submit" class="btn btn-primary add-to-cart" style="font-size: 1rem;">Add to Cart</button>
+                        </form>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

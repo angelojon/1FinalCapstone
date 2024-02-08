@@ -1,0 +1,586 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-lZN37f5E5q6B6AY4FtoJj1r5f5Ck1C5F5f5lF5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5" crossorigin="anonymous">
+
+</head>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /********* LANDING PAGE *********/
+
+
+        .rowi {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+            .rowi h1 {
+                text-align: left;
+                font-size: 6rem;
+                background: transparent;
+                padding: 10px;
+                margin: 15px;
+                margin-top: 100px;
+                margin-left: 100px;
+                z-index: 1;
+                color: white;
+            }
+
+            .rowi p {
+                color: white;
+                z-index: 1;
+                margin-top: 15px;
+                margin-left: 117px;
+            }
+
+            .rowi .btn {
+                position: relative;
+                z-index: 2; /* Add this line to set a higher z-index for the button */
+                margin-top: 15px;
+                margin-left: 117px;
+            }
+
+        .video-container {
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+            .video-container video {
+                width: 100%; /* Set the width to 100% to stretch horizontally */
+                height: 100%; /* Set the height to 100% to stretch vertically */
+                object-fit: cover;
+            }
+
+        .content-wrapper {
+            width: 100%;
+            background-color: whitesmoke;
+            padding: 20px; /* Reduced padding for a smaller size */
+            box-sizing: border-box;
+            border-bottom: 2px solid transparent; /* Add a transparent border to create space for shadow */
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); /* Add shadow to the bottom border */
+        }
+
+        .topbar-items {
+            display: flex;
+            justify-content: center; /* Center the items horizontally */
+            align-items: center;
+            margin-left: -10%;
+            margin-top: 10px;
+        }
+
+            .topbar-items i {
+                margin-right: 10px; /* Add margin to separate icon from text */
+                align-items: center; /* Vertically align icon and text */
+                display: flex; /* Add flex display to align icon and text */
+                margin: 20px; /* Add margin to separate topbar items */
+                padding-left: 100px;
+            }
+
+
+
+            .topbar-items h1 {
+                color: black;
+                text-decoration: none;
+                margin-right: 10px; /* Reduced margin for a smaller size */
+                font-size: 20px; /* Smaller font size */
+            }
+
+            .topbar-items p {
+                color: black;
+                text-decoration: none;
+                margin-right: 10px; /* Reduced margin for a smaller size */
+                font-size: 14px; /* Smaller font size */
+                font-weight: normal; /* Set font weight to normal (non-bold) */
+            }
+
+
+        /* Style the topbar items as needed */
+
+        .rowu .bg-image2 {
+            background-image: url('../../2ndwallpaper.png');
+            background-repeat: no-repeat;
+            height: 100vh;
+            max-width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* <= This one */
+        }
+
+        .text2 {
+            flex-basis: 50%;
+            min-width: 300px;
+            text-align: right;
+            padding-right: 50px;
+            padding-top: 150px;
+        }
+
+            .text2 h1 {
+                font-size: 80px;
+                line-height: 70px;
+                color: white;
+                margin-bottom: 10px;
+            }
+
+
+
+        /********* LANDING PAGE - EXPLORE MORE *********/
+
+        .btn {
+            display: inline-block;
+            background: dodgerblue;
+            color: #fff;
+            padding: 8px 30px;
+            margin: 30px 0;
+            margin-left: 120px;
+            border-radius: 30px;
+            transition: background 0.5s;
+        }
+
+            .btn:hover {
+                background: white;
+            }
+
+        /******* CATEGORIES *******/
+
+        .small-container {
+            height: 100vh;
+            background-repeat: no-repeat;
+            background-color: white;
+            max-width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-bottom: -20%;
+            margin-top: 50px;
+        }
+
+        .small-container h1 {
+            font-size: 40px;
+            color: black;
+        }
+
+        .rowc {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 0 -10px;
+        }
+
+        .col-4 {
+            width: 30%;
+            padding: 10px;
+            position: relative; /* Added to create a positioning context for absolute elements */
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .image-container img {
+                transition: transform 0.5s ease; /* Increase the transition duration for a smoother effect */
+            }
+
+            .image-container:hover img {
+                transform: scale(1.2); /* You can adjust the scale factor as needed */
+            }
+
+
+        .col-4 img {
+            max-width: 100%;
+            max-height: 100%;
+            filter: brightness(70%); /* Adjust the brightness value as needed (e.g., 70%) */
+        }
+
+        .image-text {
+            position: absolute;
+            top: 50%; /* Adjust as needed to vertically center the text */
+            left: 50%; /* Adjust as needed to horizontally center the text */
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            padding: 5px 10px;
+        }
+
+        .title {
+            font-size: 80px;
+            text-align: center;
+            margin: 0 auto 80px;
+            position: relative;
+            top: 40px;
+            line-height: 60px;
+            color: #555;
+        }
+
+            .title::after {
+                content: '';
+                background: dodgerblue;
+                width: 350px;
+                height: 5px;
+                border-radius: 5px;
+                position: absolute;
+                bottom: -70%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+
+    /******************************************* ETO AY SA FEATURED PRODS ******************************************/
+    /* cycle section start */
+
+    .cycle_section {
+        width: 100%;
+        float: left;
+        padding-bottom: 90px;
+    }
+
+    .cycle_taital {
+        width: 100%;
+        float: left;
+        font-size: 40px;
+        color: #111111;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .cycle_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #242424;
+        text-align: center;
+        margin: 0px;
+    }
+
+    .cycle_section_2 {
+        width: 100%;
+        float: left;
+    }
+
+    .box_main {
+        width: 100%;
+        float: left;
+        position: relative;
+    }
+
+    .number_text {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        color: black;
+        background-color: bisque;
+        border-radius: 100px;
+        text-align: center;
+        padding: 10px 0px;
+        float: right;
+        margin-right: 140px;
+        margin-top: 60px;
+    }
+
+    .image_2 {
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding-left: 100px;
+    }
+
+ 
+
+    .cycles_text {
+        width: 100%;
+        float: left;
+        font-size: 40px;
+        color: #1c1c1c;
+        font-weight: bold;
+        text-align: right;
+        padding-top: 40px;
+    }
+
+        .cycles_text:after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 1px;
+            background-color: black;
+            left: 0px;
+            right: initial;
+            margin: 0 auto;
+            top: 70px;
+        }
+
+    .lorem_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #1c1c1c;
+        margin: 0px;
+        padding-top: 40px;
+    }
+
+    .btn_main {
+        width: 100%;
+        display: flex;
+        padding-top: 50px;
+    }
+
+    .buy_bt {
+        width: 170px;
+        float: left;
+    }
+
+        .buy_bt a {
+            width: 100%;
+            float: left;
+            font-size: 18px;
+            color: black;
+            background-color: bisque;
+            padding: 8px 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            .buy_bt a:hover {
+                color: #ffffff;
+                background-color: dodgerblue;
+            }
+
+    .price_text {
+        width: 100%;
+        float: right;
+        text-align: right;
+        font-size: 20px;
+        color: #222222;
+        font-weight: bold;
+        padding-top: 8px;
+    }
+
+    .cycle_section_3 {
+        width: 100%;
+        float: left;
+        padding-bottom: 90px;
+    }
+
+    
+
+    .number_text_2 {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        color: black;
+        background-color: bisque;
+        border-radius: 100px;
+        text-align: center;
+        padding: 10px 0px;
+        float: right;
+        margin-right: 185px;
+        margin-top: 60px;
+    }
+
+    .read_btn_main {
+        width: 100%;
+        float: left;
+        margin-top: 200px;
+    }
+
+    .read_bt {
+        width: 170px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+        .read_bt a {
+            width: 100%;
+            float: left;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #f7c17b;
+            padding: 8px 5px;
+            text-align: center;
+        }
+
+            .read_bt a:hover {
+                color: #ffffff;
+                background-color: #325662;
+            }
+
+    /* cycle section end */
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.A.M. Bikeshop</title>
+
+</head>
+<body>
+
+
+    <div class="rowi">
+
+        <h1>RIDE TO LIVE<span style="color: dodgerblue;"><br />LIVE TO RIDE</span></h1>
+        <p>Ride with Confidence, Shop with Us, Your One-Stop Bike Shop!</p>
+
+
+        <div class="video-container">
+            <video src="~/cycling.mp4" autoplay loop muted></video>
+        </div>
+
+        <a href="@Url.Action("Products", "Home")" class="btn"> Explore More &#10132; </a>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Your topbar items can go here -->
+        <div class="topbar-items">
+            <!-- Example topbar item: -->
+
+            <i class="fas fa-truck fa-2x"></i>
+            <div>
+                <h1>Free Shipping</h1>
+                <p>On Orders P5,000+ Around Metro Manila</p>
+            </div>
+
+
+            <i class="fas fa-bolt fa-2x"></i>
+            <div>
+                <h1>1 Month Free Service</h1>
+                <p>For Customized Bicycles</p>
+            </div>
+
+            <i class="fas fa-undo-alt fa-2x"></i>
+            <div>
+                <h1>Free Returns</h1>
+                <p>Conditions Apply</p>
+            </div>
+
+            <!-- Add more topbar items as needed -->
+        </div>
+    </div>
+
+
+
+
+
+    <!------ bike builder ------>
+
+ <div class="small-container">
+     <h1 class="cycle_taital">Customize</h1>
+     <p class="cycle_text">Build your own you</p>
+     <br />
+     <br />
+
+     <div class="rowc">
+         <div class="col-4">
+             <div class="image-container">
+                 <img src="~/Personalize.jpeg" alt="Personalize">
+                 <p class="image-text">VISUALIZE YOUR DREAM BIKE</p>
+             </div>
+         </div>
+         <div class="col-4">
+             <div class="image-container">
+                 <img src="~/Easytouse.png" alt="Easy to Use">
+                 <p class="image-text">PICK YOUR PARTS</p>
+             </div>
+         </div>
+         <div class="col-4">
+             <div class="image-container">
+                 <img src="~/Dynamic.jpeg" alt="Dynamic">
+                 <p class="image-text">ENJOY YOUR BUILD</p>
+             </div>
+         </div>
+     </div>
+ </div>
+
+    <!------ featured prods ------>
+
+    <div class="cycle_section layout_padding">
+        <div class="container">
+            <h1 class="cycle_taital">Our cycle</h1>
+            <p class="cycle_text">It is a long established fact that a reader will be distracted by the </p>
+            <div class="cycle_section_2 layout_padding">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box_main">
+                            <h6 class="number_text">01</h6>
+                            <div class="image_2"><img src="/Step5.1.png" style="width: 100%; height:100%"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="cycles_text">Cycles</h1>
+                        <p class="lorem_text">
+                            A bike that's perfect for trails features robust, durable construction with excellent 
+                            suspension systems that smoothly navigate through uneven terrain. Its responsive handling 
+                            and superior traction provide a thrilling and confident ride, making it an ideal companion 
+                            for off-road adventures.
+                        </p>
+                        <div class="btn_main">
+                            <div class="buy_bt"><a href="@Url.Action("Products", "Home")">Buy Now</a></div>
+                            <h4 class="price_text">₱ <span style=" color: #f7c17b"></span> <span style=" color: #325662">6,000</span></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cycle_section_3 layout_padding">
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <h1 class="cycles_text">Stylis Cycle</h1>
+                        <p class="lorem_text">
+                            A trail-ready bike not only conquers the rugged paths with its sturdy design 
+                            but also stands out with a captivating pop of color. Its vibrant frame, 
+                            contrasting accents, and eye-catching graphics not only add style but also ensure you'll hit 
+                            the trails with flair and personality.
+                        </p>
+                        <div class="btn_main">
+                            <div class="buy_bt"><a href="@Url.Action("Products", "Home")">Buy Now</a></div>
+                            <h4 class="price_text">₱ <span style=" color: #f7c17b"></span> <span style=" color: #325662">2,000</span></h4>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box_main_3">
+                            <h6 class="number_text_2">02</h6>
+                            <div class="image_2"><img src="/Step5.png" style="width: 100%; height:100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</body>

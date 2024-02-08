@@ -1,0 +1,633 @@
+﻿@model List<_1FinalCapstone.Models.DashboardViewModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <style>
+        :root {
+            --main-color: dodgerblue;
+            --color-dark: #1D2231;
+            --text-grey: #8390A2;
+        }
+
+
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            overflow-x: hidden;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style-type: none;
+            text-decoration: none;
+        }
+
+        .sidebar {
+            width: 345px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--main-color);
+            z-index: 100;
+            transition: width 300ms;
+        }
+
+        .sidebar-brand {
+            height: 90px;
+            padding: 1rem 0rem 1rem 2rem;
+            color: #fff;
+        }
+
+            .sidebar-brand span {
+                display: inline-block;
+                padding-right: 1rem;
+            }
+
+        .sidebar-menu {
+            margin-top: 1rem;
+        }
+
+            .sidebar-menu li {
+                width: 100%;
+                margin-bottom: 1.3rem;
+                padding-left: 1rem;
+            }
+
+            .sidebar-menu a {
+                padding-left: 1rem;
+                display: block;
+                color: #fff;
+                font-size: 1.1rem;
+            }
+
+                .sidebar-menu a.active {
+                    background: #fff;
+                    padding-top: 1rem;
+                    padding-bottom: 1rem;
+                    color: var(--main-color);
+                    border-radius: 30px 0px 0px 30px;
+                }
+
+                .sidebar-menu a span:first-child {
+                    font-size: 1.5rem;
+                    padding-right: 1rem;
+                }
+
+        #nav-toggle:checked + .sidebar {
+            width: 70px;
+        }
+
+            #nav-toggle:checked + .sidebar .sidebar-brand,
+            #nav-toggle:checked + .sidebar li {
+                padding-left: 1rem;
+                text-align: center;
+            }
+
+                #nav-toggle:checked + .sidebar li a {
+                    padding-left: 0rem;
+                }
+
+                    #nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,
+                    #nav-toggle:checked + .sidebar li a span:last-child {
+                        display: none;
+                    }
+
+        #nav-toggle:checked ~ .main-content {
+            margin-left: 70px;
+        }
+
+            #nav-toggle:checked ~ .main-content header {
+                width: calc(100% - 70px);
+                left: 70px;
+            }
+
+        .main-content {
+            transition: margin-left 300ms;
+            margin-left: 345px;
+        }
+
+        header {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            position: fixed;
+            left: 345px;
+            width: calc(100% - 345px);
+            top: 0;
+            z-index: 100;
+            transition: left 300ms;
+        }
+
+            header h2 {
+                color: #222;
+            }
+
+            header label span {
+                font-size: 1.7rem;
+                padding-right: 1rem;
+            }
+
+        .search-wrapper {
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+            .search-wrapper span {
+                display: inline-block;
+                padding: 0rem 1rem;
+                font-size: 1.5rem;
+            }
+
+            .search-wrapper input {
+                height: 100%;
+                padding: .5rem;
+                border: none;
+                outline: none;
+            }
+
+        .user-wrapper {
+            display: flex;
+            text-align: right;
+        }
+
+            .user-wrapper img {
+                border-radius: 50%;
+                margin-right: 1rem;
+            }
+
+            .user-wrapper small {
+                display: inline-block;
+                color: var(--text-grey);
+            }
+
+        main {
+            margin-top: 85px;
+            padding: 2rem 1.5rem;
+            background: #f1f5f9;
+            min-height: calc(100vh - 90px);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .card-single {
+            display: flex;
+            justify-content: space-between;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            margin-right: 30px
+        }
+
+            .card-single div:last-child span {
+                font-size: 3rem;
+                color: var(--main-color);
+            }
+
+            .card-single div:first-child span {
+                color: black;
+            }
+
+            .card-single:last-child {
+                color: black;
+            }
+
+        .recent-grid {
+            margin-top: 3.5rem;
+            display: grid;
+            grid-gap: 2rem;
+            grid-template-columns: 100% auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .card-header,
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            .card-header button {
+                background: var(--main-color);
+                border-radius: 10px;
+                color: #fff;
+                font-size: .8rem;
+                padding: .5rem 1rem;
+                border: 1px solid var(--main-color);
+            }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        thead td {
+            font-weight: 700;
+        }
+
+        td {
+            padding: .5rem 1rem;
+            font-size: .9rem;
+            color: #222;
+        }
+
+            td .status {
+                display: inline-block;
+                height: 10px;
+                width: 10px;
+                border-radius: 50%;
+                margin-right: 1rem;
+            }
+
+            td.name {
+                width: 160px;
+            }
+
+            td.order-status {
+                width: 110px;
+            }
+
+
+        tr td:last-child {
+            display: flex;
+            align-items: center;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .customers {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .5rem .7rem;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+        }
+
+        info img {
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .info h4 {
+            font-size: .8rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .info small {
+            font-weight: 600;
+            color: var(--text-grey);
+        }
+
+        .conatact span {
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-left: .5rem;
+            color: var(--main-color);
+        }
+
+        .customer-info {
+            margin-bottom: 30px;
+        }
+
+            .customer-info h3 {
+                margin-bottom: 1px;
+            }
+
+        .cards .card-single span:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.1); /* Change the background color on hover */
+            transition: background-color 0.3s ease; /* Add a smooth transition */
+        }
+
+        .cards .card-single span:active {
+            background-color: rgba(0, 0, 0, 0.2); /* Change the background color when clicked */
+        }
+
+        .icon-style {
+            font-size: 3rem; /* Adjust the size as needed */
+            color: var(--main-color); /* Use the desired color */
+            /* Add any other styling you want */
+        }
+
+        .sidebar-menu li a {
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .sidebar-menu a .las {
+            margin-right: 1rem; /* Add spacing between icon and text */
+            font-size: 1.5rem; /* Adjust the icon size as needed */
+        }
+
+
+        .sidebar-menu li a:hover {
+            /* add hover color */
+            background: #4F4557;
+            font-size: 1.2rem;
+        }
+
+        .custom-button {
+            padding: 10px 20px; /* Add some padding to the button */
+            border: none; /* Remove the border */
+            cursor: pointer; /* Change the cursor on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2> <span class="lab la-accusoft"> </span> <span>M.A.M Bike Shop</span> </h2>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="~/Home/AdminHome" class="">
+                        <span class="las la-home"></span>
+                        <span> Home </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Products/Index">
+                        <span class="las la-shopping-cart"></span> <!-- Use "las" style for shopping cart icon -->
+                        <span> Products </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/BikeBuilders/Index">
+                        <span class="las la-cogs"></span> <!-- Use "las" style for customization icon -->
+                        <span> Customization </span>
+                    </a>
+                </li>
+
+                @if (User.IsInRole("Owner"))
+                {
+                    <li>
+                        <a href="~/AspNetUsers/Index">
+                            <span class="las la-users"></span>
+                            <span> Accounts Management </span>
+                        </a>
+                    </li>
+                }
+
+
+                <li>
+                    <a href="~/Checkout/ListofOrders">
+                        <span class="las la-list-alt"></span> <!-- Use "las" style for list icon -->
+                        <span> Checkout Status Management </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="~/ShopAccounts/Index">
+                        <span class="las la-store"></span> <!-- Use "las" style for list icon -->
+                        <span> Shop Accounts </span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="~/AuditLogs/AuditLogs">
+                        <span class="las la-history"></span> <!-- Use "las" style for history icon -->
+                        <span> Audit Logs</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="~/Home/Index">
+                        <span class="las la-users"> </span>
+                        <span> M.A.M BikeShop </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                Dashboard
+            </h2>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    $('#searchInput').on('keydown', function (event) {
+                        if (event.keyCode === 13) {
+                            $(this).closest('form').submit();
+                        }
+                    });
+                });
+            </script>
+
+            <div class="user-wrapper">
+                <div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <ul class="navbar-nav navbar-right">
+                                <li>
+                                    @Html.ActionLink("Hello Admin" + "!", "ManageAccount", "AspNetUsers", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                </li>
+
+
+                                <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav navbar-left">
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="cards">
+                @foreach (var viewModel in Model)
+                {
+                    <div class="card-single">
+                        <div>
+                            <h1>@viewModel.Users.Count()</h1>
+                            <h3>Customers</h3>
+                        </div>
+                        <div>
+                            <a href="~/AspNetUsers/Index">
+                                <span class="las la-users"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>@string.Format("{0:#,0}", @viewModel.TotalProductsQuantity)</h1>
+                            <h3>Products</h3>
+                        </div>
+                        <div>
+                            <a href="~/Products/Index">
+                                <span class="icon-style las la-clipboard-list"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>@viewModel.Builder.Count()</h1>
+                            <h3>Bike Builders</h3>
+                        </div>
+                        <div>
+                            <a href="~/BikeBuilders/Index">
+                                <span class="icon-style las la-bicycle"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>₱@viewModel.TotalPrice.ToString("N2")</h1>
+                            <h3>Total Revenue</h3>
+                        </div>
+                        <div>
+                            <a href="~/CompletedOrders/ListofCompletedOrders">
+                                <span class="icon-style las la-money-bill-wave"></span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="card-single">
+                        <div>
+                            <h1>₱@viewModel.TotalInvestment.ToString("N2")</h1>
+                            <h3>Total Investment</h3>
+                        </div>
+                        <div>
+                            <a href="~/BikeBuilders/Index">
+                                <span class="icon-style las la-money-bill"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>₱@((viewModel.TotalIncome).ToString("N2"))</h1>
+                            <h3>Total Income</h3>
+                        </div>
+                        <div>
+                            <a href="">
+                                <span class="icon-style las la-hand-holding-usd"></span>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="recent-grid">
+                <div class="projects">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Orders</h3>
+                            <a href="~/Checkout/ListofOrders">
+                                <button class="custom-button">See All<span class="las la-arrow-right"></span></button>
+                            </a>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>Customer</td>
+                                            <td>Email</td>
+                                            <td>Order Name</td>
+                                            <td>Order Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var viewModel in Model)
+                                        {
+                                            var first5Records = viewModel.CheckoutRecords.OrderByDescending(record => record.CheckoutDate).Take(5);
+                                            foreach (var checkoutRecord in first5Records)
+                                            {
+                                                <tr>
+                                                    <td class="name">@checkoutRecord.FirstName @checkoutRecord.LastName</td>
+                                                    <td>@checkoutRecord.Email</td>
+                                                    <td>@checkoutRecord.OrderName</td>
+                                                    <td class="order-status">@checkoutRecord.OrderStatus</td>
+
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+</body>
+</html>

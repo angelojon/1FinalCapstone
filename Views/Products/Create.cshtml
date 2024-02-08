@@ -1,0 +1,176 @@
+﻿    @model _1FinalCapstone.Models.Product
+    @{
+        ViewBag.Title = "Create";
+        Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    }
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 25px;
+        }
+
+        .form-group {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #888888;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+        }
+
+        .btn-secondary {
+            margin-left: 0px;
+            margin-top: 10px;
+        }
+    </style>
+    <center>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <h2 class="text-center mb-4"><b>Create Bike Part Details</b></h2>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <center>
+                            <b> Item Name</b>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <b>Item Description</b>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.ItemDesc, new { @class = "form-control", @rows = 8 })
+                                @Html.ValidationMessageFor(model => model.ItemDesc, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+                            <b> Item Quantity</b>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ItemQuantity, new { htmlAttributes = new { @class = "form-control", min = 1 } })
+                                @Html.ValidationMessageFor(model => model.ItemQuantity, "", new { @class = "text-danger" })
+                            </div>
+
+                            <b>  Item Cost</b>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ItemCost, new { htmlAttributes = new { @class = "form-control", min = 1 } })
+                                @Html.ValidationMessageFor(model => model.ItemCost, "", new { @class = "text-danger" })
+                            </div>
+
+                            <b>Item Price</b>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control", min = 1 } })
+                                @Html.ValidationMessageFor(model => model.ItemPrice, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+                            <b>Component Type</b>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.ComponentType, new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Bike", Value = "Bike" },
+                                    new SelectListItem { Text = "Fork", Value = "Fork" },
+                                    new SelectListItem { Text = "Handlebar", Value = "Handlebar" },
+                                    new SelectListItem { Text = "Chain", Value = "Chain" },
+                                    new SelectListItem { Text = "Seatpost/Saddle", Value = "Seatpost/Saddle" },
+                                    new SelectListItem { Text = "Shifter", Value = "Shifter" },
+                                    new SelectListItem { Text = "Tires", Value = "Tires" },
+                                    new SelectListItem { Text = "Accessories", Value = "Accessories" },
+                                    new SelectListItem { Text = "Others", Value = "Others" },
+                                }, "Select Category", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ComponentType, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="mb-3">
+                                @Html.Label("Image", htmlAttributes: new { @class = "form-label" })
+                                <input type="file" class="form-control-file" id="ImageProd" name="prodImage" accept=".png, .jpg, .jpeg" required />
+
+                                <br />
+                                <span id="ImageValidation" class="text-danger validation-error"></span>
+                                <span id="ImageFileTypeError" class="text-danger validation-error"></span>
+                            </div>
+
+                        </center>
+                            <div class="mb-3 text-center">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </center>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+            $(document).ready(function () {
+                $('form').submit(function (event) {
+                    var imageInput = $('#ImageProd');
+                    var imageValidation = $('#ImageValidation');
+
+                    // Check if the image input is empty
+                    if (imageInput.val() === '') {
+                        event.preventDefault(); // Prevent form submission
+                        imageValidation.text('Please select an image.'); // Display error message
+                    } else {
+                        // Check the file extension
+                        var fileName = imageInput.val();
+                        var fileExtension = fileName.substr((fileName.lastIndexOf('.') + 1));
+
+                        if (fileExtension.toLowerCase() !== 'png' && fileExtension.toLowerCase() !== 'jpg' && fileExtension.toLowerCase() !== 'jpeg') {
+                            event.preventDefault(); // Prevent form submission
+                            imageValidation.text('Please select a PNG, JPG, or JPEG image.'); // Display error message
+                        } else {
+                            imageValidation.text(''); // Clear any previous error message
+                        }
+                    }
+
+                    // Prevent negative, positive signs and leading zeros in numeric input fields
+                    var numericFields = ['ItemQuantity', 'ItemCost', 'ItemPrice'];
+                    for (var i = 0; i < numericFields.length; i++) {
+                        var field = $('#' + numericFields[i]);
+                        if (field.val().match(/^-/) || field.val().match(/^[+]/) || field.val().match(/^0/)) {
+                            event.preventDefault(); // Prevent form submission
+                            field.addClass('is-invalid'); // Add a class to highlight the field
+                        }
+                    }
+                });
+
+                // Block negative, positive signs and leading zeros on keydown
+                $('input[type="number"]').on('keydown', function (e) {
+                    if (e.key === '-' || e.key === '+' || (e.key === '0' && this.value.length === 0)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
+    }
+

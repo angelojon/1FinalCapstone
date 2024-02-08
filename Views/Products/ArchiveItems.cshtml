@@ -1,0 +1,111 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-xCz3RmXss5JyYj5Oz8nA5G20bRV2vz69/u7FqY+1fjU5z5ByjZh8ETxJ3k5O4Sh5H" crossorigin="anonymous">
+</head>
+
+<style>
+    .btn-margin {
+        margin-left: 10px;
+    }
+
+    table.table thead th {
+        width: 10%; /* Adjust the width as needed */
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) for long titles */
+    }
+
+    .custom-icon {
+        font-size: 18px !important;
+    }
+
+    td {
+        font-weight: normal !important;
+    }
+</style>
+
+<br />
+<br />
+<h2 class="text-center mb-4"><b>Products</b></h2>
+<div class="d-flex justify-content-end mb-2">
+
+
+    @Html.ActionLink("Go Back to Products", "Index", null, new { @class = "btn btn-primary" })
+</div>
+<div class="table-responsive">
+    <!-- Search input field -->
+    <div class="mb-2">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by Name" />
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Model Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Price</th>
+                <th>Component Type</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ItemName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ItemDesc)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ItemQuantity)</td>
+                    <td>₱@string.Format("{0:n0}", item.ItemCost).00</td>
+                    <td>₱@string.Format("{0:n0}", item.ItemPrice).00</td>
+                    <td>@Html.DisplayFor(modelItem => item.ComponentType)</td>
+                    <td><img src="data:image/png;base64,@item.ImageProd" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" /></td>
+                    <td>
+                        <form method="post" action="@Url.Action("UnArchiveAction", "Products", new { id = item.ProductId })" id="unarchive-form-@item.ProductId">
+                            <button type="button" class="btn btn-danger unarchive-button" data-product-id="@item.ProductId">Unarchive</button>
+                        </form>
+                    </td>
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts {
+    <script>
+        // Function to filter the table rows based on the search input
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".unarchive-button").on("click", function () {
+                var productId = $(this).data("product-id");
+                var confirmation = confirm("Are you sure you want to Unarchive this product?");
+
+                if (confirmation) {
+                    // If the user confirms, submit the form
+                    $("#unarchive-form-" + productId).submit();
+                }
+            });
+        });
+    </script>
+}
+

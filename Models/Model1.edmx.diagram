@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f102f8ec2137437cadee0beabfbdf8d9" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="10.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="1.5" PointX="10.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CartBuilder" Width="1.5" PointX="2.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Customer" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CustomerAccount" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OrderInformation" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product2" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Shipping" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="4.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Transaction" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_CustomerAccount_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_OrderInformation_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CustomerAccount_Transaction" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_OrderInformation_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_OrderInformation_Shipping" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.ShopAccounts" Width="1.5" PointX="12.375" PointY="9.75" />
+        <EntityTypeShape EntityType="Model.BikeBuilder" Width="1.5" PointX="12.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.AuditLogs" Width="1.5" PointX="12.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.CancelledOrders" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.CompletedOrders" Width="1.5" PointX="7.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="5.75" PointY="19.5" />
+        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="8" PointY="18.75" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Model.Cart" Width="1.5" PointX="6.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Model.CheckoutTable" Width="1.5" PointX="14.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

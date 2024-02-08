@@ -1,0 +1,266 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Builder Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            overflow: hidden;
+        }
+
+        .left-section {
+            flex: 1;
+            margin-left: -250px;
+        }
+
+        .right-section {
+            width: 300px; /* Adjust the width as needed */
+            position: relative;
+            right: 50px;
+        }
+
+        .builderM {
+            color: black;
+            position: relative;
+            left: 200px;
+        }
+
+            .builderM img {
+                position: relative;
+                max-width: 60%; /* Adjust the desired maximum width */
+                max-height: 60%; /* Adjust the desired maximum height */
+                margin-left: auto; /* Move the image to the right by setting margin-left to auto */
+                left: 160px; /* Optional: If you want to further adjust the position to the right */
+            }
+
+
+            .builderM h2 {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 30px;
+                color: black; /* Set the text color */
+                /* Add other font styles like text-decoration, font-weight, etc. */
+            }
+
+            .builderM h3 {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 30px;
+                color: black;
+            }
+
+            .builderM p {
+                margin-left: 70px;
+                position: relative;
+                top: -80px;
+                font-size: 20px;
+                color: black;
+            }
+
+                .builderM p.price {
+                    margin-left: 70px;
+                    position: relative;
+                    top: -80px;
+                    font-size: 27px;
+                    color: black; /* Custom color for price */
+                    font-weight: bold;
+                }
+
+        /* Add these styles to display radio buttons side by side */
+        .form-check {
+            display: inline-block; /* Change to inline-block for side-by-side display */
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .custom-inline {
+            display: inline-block;
+            margin-left: 20px; /* Adjust margin as needed to separate radio buttons */
+        }
+
+        .blackbg {
+            background-image: url('../../whitebg.jpg');
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-attachment: fixed; /* Optional: Keeps the image fixed while scrolling */
+        }
+
+        .rounded-container {
+            width: 60%; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the container horizontally */
+            border-radius: 10px; /* Adjust the value to control the roundness */
+            background-color: rgb(128, 128, 128, .5); /* Adjust the background color and opacity */
+            padding: 20px; /* Add padding to create space inside the container */
+            position: relative; /* Position relative to move it */
+            right: 250px;
+            bottom: 650px; /* Adjust the top value to move it lower */
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="blackbg" />
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary custom-home-button" style="margin: 10px;" onclick="return confirm('Are you sure you want to go back? Your build will not be saved.');">
+        <i class="fas fa-home"></i>
+    </a>
+
+
+
+    <div id="mainContent" class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                @foreach (var bikeBuilder in Model.BikeBuilders)
+                {
+                    if (bikeBuilder.BuilderId == 1 || bikeBuilder.BuilderId == 2)
+                    {
+                        <div class="builderM mb-4" data-builderid="@bikeBuilder.BuilderId">
+                            @if (!string.IsNullOrEmpty(bikeBuilder.Budimage1))
+                            {
+                                <img src="data:image/jpeg;base64, @bikeBuilder.Budimage1" alt="Image 1" class="img-fluid" />
+                            }
+                        </div>
+                        <br />
+                        <br />
+                        <div class="builderM mb-4" data-builderid="@bikeBuilder.BuilderId">
+                            <h2>@bikeBuilder.StepTitle @bikeBuilder.BuilderTitle1</h2>
+                            <br />
+                            <p>@bikeBuilder.BuilderDescription1</p>
+                            <p>Price: ₱@bikeBuilder.Bprice1</p>
+                        </div>
+                    }
+                }
+            </div>
+
+
+
+            <div class="col-lg-6 col-md-12">
+                <div class="rounded-container">
+                    <form>
+                        <div class="form-check custom-inline">
+
+                            @{
+                                var builder1Image1 = Model.BikeBuilders.FirstOrDefault(bikeBuilder => bikeBuilder.BuilderId == 1);
+                            }
+                            @if (builder1Image1 != null && !string.IsNullOrEmpty(builder1Image1.Budimage1))
+                            {
+                                <img src="data:image/jpeg;base64, @builder1Image1.Budimage1" alt="Image 1" class="img-fluid" />
+                            }
+                            <input type="radio" class="form-check-input center-radio" name="builderSelection" value="1" checked style="display: inline-block; margin-right: 10px;" />
+                            <label class="form-check-label" style="display: inline-block; color: black">Frame 1</label>
+
+
+                            @{
+                                var builder1Image2 = Model.BikeBuilders.FirstOrDefault(bikeBuilder => bikeBuilder.BuilderId == 2);
+                            }
+                            @if (builder1Image2 != null && !string.IsNullOrEmpty(builder1Image2.Budimage1))
+                            {
+                                <img src="data:image/jpeg;base64, @builder1Image2.Budimage1" alt="Image 1" class="img-fluid" />
+                            }
+                            <input type="radio" class="form-check-input center-radio" name="builderSelection" value="2" style="display: inline-block; margin-right: 10px;" />
+                            <label class="form-check-label" style="display: inline-block; color: black; align-items: center;">Frame 2</label>
+                            <br />
+
+                        </div>
+                        <button type="button" class="btn btn-primary mt-2" id="loadDataButton">Next Step</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="builderData" style="display: none;"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to load builder data via AJAX
+            function loadBuilderData(builderId) {
+                // Generate a unique timestamp to serve as a cache-busting parameter
+                var timestamp = new Date().getTime();
+
+                // Perform an AJAX request with the cache-busting parameter
+                $.ajax({
+                    url: '/CustomerBuilder/GetPartialView',
+                    type: 'GET',
+                    data: { builderId: builderId, timestamp: timestamp }, // Add the timestamp parameter
+                    success: function (data) {
+                        $('#builderData').html(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX Error:", errorThrown);
+                    }
+                });
+            }
+
+            // Handle form submission
+            $('#loadDataButton').click(function (e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+                $('#mainContent').hide();
+                $('#builderM').hide();
+                $('#builderData').show();
+                var selectedBuilder = $('input[name="builderSelection"]:checked').val();
+
+                // Perform an AJAX request to fetch the appropriate partial view
+                loadBuilderData(selectedBuilder);
+            });
+
+            // Function to go back to the main content
+            function goBack() {
+                $('#mainContent').show();
+                $('#builderData').hide();
+            }
+
+            // Handle "Go Back" button click event
+            $('#goBackButton').click(function () {
+                goBack();
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Function to hide/show builder divs based on the selected radio button
+            function toggleBuilderDivs(selectedBuilder) {
+                $('.builderM').hide(); // Hide all builder divs
+                $('.builderM[data-builderid="' + selectedBuilder + '"]').show(); // Show the selected builder div
+            }
+
+            // Handle radio button change event
+            $('input[name="builderSelection"]').change(function () {
+                var selectedBuilder = $(this).val();
+
+                // Toggle builder divs to show/hide based on the selected radio button
+                toggleBuilderDivs(selectedBuilder);
+            });
+
+            // Initially hide all builder divs except the first one
+            $('.builderM').hide();
+            $('.builderM[data-builderid="1"]').show();
+        });
+    </script>
+
+</body>
+</html>

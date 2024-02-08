@@ -1,0 +1,482 @@
+﻿@model _1FinalCapstone.Models.Merge
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int productCount = 0;
+}
+<style>
+    /* Style for the "Add to Cart" button */
+    .btn.add-to-cart {
+        background-color: #007BFF; /* Button background color */
+        color: #fff; /* Text color */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Add a slight border radius */
+        padding: 10px 20px; /* Adjust the padding as needed */
+        font-size: 1rem; /* Font size */
+        cursor: pointer; /* Show a pointer cursor on hover */
+        transition: background-color 0.3s, color 0.3s; /* Add a smooth transition effect */
+        /* Optional: Hover styles */
+        background-color: #0056b3; /* Button background color on hover */
+        /* You can adjust other styles like text color, box shadow, etc. */
+    }
+
+    .popup-message {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #007BFF;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        z-index: 9999;
+    }
+</style>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="img-header">
+            <div class="text2">
+                <h1>OUR STORE</h1>
+                <p>
+                    Elevate your cycling experience with our premium bicycle components. <br />
+                    Whether you're a casual rider or a competitive racer, our top-notch selection caters to your needs. <br />
+                    Explore now for peak performance and endless adventure.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-and-filter">
+        <div class="search-bar">
+            <button id="searchButton">Search</button>
+
+            <input type="text" id="searchInput" placeholder="Search for products...">
+        </div>
+
+        <!-- Category Dropdown -->
+        <select id="categoryDropdown">
+            <option value="">Categories</option>
+            <option value="">All</option>
+            <option value="Bike">BIKES</option>
+            <option value="Fork">FORKS</option>
+            <option value="Handlebar">HANDLEBAR</option>
+            <option value="Chain">CHAIN</option>
+            <option value="Seatpost/Saddle">SEATPOST/SADDLE</option>
+            <option value="Shifter">SHIFTER</option>
+            <option value="Tires">TIRES</option>
+            <option value="Accessories">ACCESSORIES</option>
+            <option value="Others">OTHERS</option>
+        </select>
+
+        <div class="price-filter">
+            <!-- Price Sorting Dropdown -->
+            <select id="priceSortDropdown">
+                <option value="asc">Price: Low to High</option>
+                <option value="desc">Price: High to Low</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div id="popup-message" class="popup-message"></div>
+
+
+
+
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+
+            <div class="col-md-3 mb-6 mx-auto">
+                <div class="row product-card-container">
+                    <div class="card h-100 product-card">
+                        <div class="card-body text-center">
+                            <img src="data:image/png;base64,@product.ImageProd" alt="Product Image" class="card-img-top">
+                            <div class="details product-details">
+                                <br />
+                                <br />
+                                <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold;">@Html.DisplayFor(modelItem => product.ItemName)</h5>
+                                <h5 class="card-title" style="font-size: 1.2rem; font-weight: normal;">₱@string.Format("{0:n0}", product.ItemPrice).00</h5>
+
+                                @if (product.ItemQuantity <= 0)
+                                {
+                                    <h5 class="card-title" style="font-size: 1.2rem; font-weight: lighter;">Unavailable</h5>
+                                }
+                                else if (product.ItemQuantity <= 5)
+                                {
+                                    <h5 class="card-title" style="font-size: 1.2rem; font-weight: lighter;">@product.ItemQuantity (Low Stocks)</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="card-title" style="font-size: 1.2rem; font-weight: lighter;">@product.ItemQuantity (Available)</h5>
+                                }
+
+                                @if (product.ItemQuantity > 0)
+                                {
+                                    <form method="post" action="@Url.Action("AddToCart", "Home")">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <button type="button" class="btn add-to-cart" onclick="addToCart(@product.ProductId)">Add to Cart</button>
+                                    </form>
+                                }
+
+
+
+
+                                <!-- Replace "Add to Cart" button with "Learn More" button -->
+                                <a href="#" class="btn-learn-more" data-toggle="modal" data-target="#productModal-@product.ProductId">Learn More</a>
+
+
+                                <!-- Product Description (hidden) -->
+                                <p class="product-description" style="display: none;">@Html.DisplayFor(modelItem => product.ItemDesc)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            if (productCount == 2)
+            {
+            @:</div><div class="row">
+                productCount = 0;
+            }
+            else
+            {
+                productCount++;
+            }
+
+        }
+    </div>
+
+    <div>
+        @if (productCount > 0)
+        {
+        @:</div>
+    }
+
+        @foreach (var product in Model.Products)
+        {
+            <!-- Product Details Modal -->
+            <div class="modal fade" id="productModal-@product.ProductId" tabindex="-1" role="dialog" aria-labelledby="productModalLabel-@product.ProductId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="data:image/png;base64,@product.ImageProd" alt="Product Image" class="modal-product-image">
+                            <h5 style="font-size: 1.5rem; font-weight: bold;">@product.ItemName</h5>
+                            <p id="modalProductPrice" style="font-size: 1.2rem; font-weight: normal;"></p>
+                            <p>@product.ItemDesc</p>
+                        </div>
+
+
+                        <div class="modal-footer">
+
+                            @if (product.ItemQuantity > 0)
+                            {
+                                <form method="post" action="@Url.Action("AddToCart", "Home")">
+                                    <input type="hidden" name="productId" value="@product.ProductId" />
+                                    <button type="button" class="btn add-to-cart" onclick="addToCart(@product.ProductId)">Add to Cart</button>
+                                </form>
+                            }
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <style>
+
+            .product-details {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Align at the bottom */
+                margin-top: auto; /* Push details to the bottom */
+            }
+
+            .product-card .card-body {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Align at the bottom */
+                margin-top: auto; /* Push the card-body (details) to the bottom */
+            }
+
+            /* Style for the image inside the modal */
+            .modal-product-image {
+                max-width: 100%; /* Adjust the width as needed */
+                max-height: 400px; /* Adjust the height as needed */
+                display: block;
+                margin: 0 auto; /* Center the image horizontally */
+            }
+
+            .modal-body {
+                text-align: center;
+            }
+
+            #modalProductDescription {
+                text-align: justify;
+            }
+
+            body {
+                font-family: 'Oswald', sans-serif;
+                overflow-x: hidden;
+            }
+
+            .img-header {
+                background-image: url('../../2ndwallpaper.png');
+                background-repeat: no-repeat;
+                height: 50vh;
+                max-width: 100%;
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed; /* <= This one */
+            }
+
+            .text2 {
+                flex-basis: 50%;
+                min-width: 300px;
+                text-align: right;
+                padding-right: 50px;
+                padding-top: 150px;
+                margin-bottom: -20px;
+            }
+
+                .text2 h1 {
+                    font-size: 80px;
+                    line-height: 70px;
+                    color: dodgerblue;
+                    margin-bottom: 10px;
+                    margin-top: -40px;
+                }
+
+            .img-header .text2 p {
+                color: white;
+            }
+
+            /* Style for the product cards container */
+            .product-card-container {
+                width: 120%; /* Set a fixed width for the card */
+                height: 100%; /* Set a fixed height for the card */
+                padding-bottom: 10px;
+                display: flex; /* Arrange cards in a row */
+                flex-direction: column; /* Change to a column layout */
+                justify-content: space-between; /* Put space between the image and details */
+            }
+
+            }
+
+            /* Style for the product cards */
+            .product-card {
+                justify-content: center; /* Center vertically */
+
+                border: 1px solid #e0e0e0; /* Add a subtle border */
+                background-color: white; /* Light gray background */
+                color: #333; /* Darker text color for better readability */
+                margin-bottom: 20px;
+                padding: 20px;
+                cursor: pointer;
+                transition: box-shadow 0.2s;
+                min-height: 300px;
+                flex: 1; /* Distribute available space evenly among cards */
+                margin-right: -10px; /* Add some spacing between cards */
+                box-sizing: border-box; /* Include padding and border in card's dimensions */
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add shadow on all sides */
+            }
+
+
+
+                .product-card img {
+                    max-width: 75%; /* Allow the image to resize to fit the card width */
+                    max-height: 75%; /* Allow the image to resize to fit the card height */
+                    display: block;
+                    margin: 0 auto; /* Center horizontally */
+                }
+
+
+
+
+            /* ----- FILTER ------ */
+
+            /* Style for the container holding search and filter */
+            .search-and-filter {
+                display: flex; /* Use flexbox to align items horizontally */
+                justify-content: center; /* Align items to the right side of the container */
+                align-items: center; /* Vertically center items within the container */
+                margin: 20px;
+            }
+
+            /* Style for the search bar */
+            .search-bar {
+                margin-right: 10px; /* Add some space between search and filter */
+            }
+
+            .price-filter {
+                justify-content: center; /* Align items to the right side of the container */
+
+                margin-left: 10px;
+            }
+        </style>
+
+        <script>
+
+            $(document).ready(function () {
+    // Handle the change event of the category dropdown
+    $('#categoryDropdown').change(function () {
+        filterProducts();
+    });
+
+    // Function to filter products based on the selected category
+    function filterProducts() {
+        var selectedCategory = $('#categoryDropdown').val();
+
+        // Construct the URL based on the selected category
+        var url = '@Url.Action("Products", "Home")';
+
+        // Add the category as a query parameter
+        if (selectedCategory) {
+            url += '?category=' + encodeURIComponent(selectedCategory);
+        }
+
+        // Redirect to the filtered URL
+        window.location.href = url;
+    }
+});
+
+
+
+            $(document).ready(function () {
+                // Handle the "Learn More" click event
+                $('.btn-learn-more').click(function () {
+                    var productCard = $(this).closest('.product-card');
+                    var productName = productCard.find('.card-title').first().text();
+                    var productImage = productCard.find('img').attr('src');
+                    var productPrice = productCard.find('.card-title').eq(1).text();
+                    var productDescription = productCard.find('.product-description').text();
+
+                    // Populate the modal with product details
+                    $('#modalProductName').text(productName);
+                    $('#modalProductImage').attr('src', productImage);
+                    $('#modalProductPrice').text(productPrice);
+                    $('#modalProductDescription').text(productDescription);
+                });
+            });
+        </script>
+        <script>
+    $(document).ready(function () {
+        // Handle the change event of the price sorting dropdown
+        $('#priceSortDropdown').change(function () {
+            sortProducts();
+        });
+
+        // Function to sort products
+        function sortProducts() {
+            var selectedSort = $('#priceSortDropdown').val();
+
+            // Construct the URL based on the selected sorting option
+            var url = '@Url.Action("Products", "Home")';
+
+            // Add the sorting option as a query parameter
+            if (selectedSort) {
+                url += '?sort=' + selectedSort;
+            }
+
+            // Redirect to the sorted URL
+            window.location.href = url;
+        }
+    });
+
+
+     $(document).ready(function () {
+        // Handle the click event of the search button
+        $('#searchButton').click(function () {
+            performSearch();
+        });
+
+        // Handle the Enter key press in the search input field
+        $('#searchInput').keydown(function (e) {
+            if (e.keyCode == 13) { // 13 is the Enter key code
+                performSearch();
+            }
+        });
+
+        // Function to perform the search
+        function performSearch() {
+            var searchQuery = $('#searchInput').val().trim();
+
+            // Construct the URL for the search action
+            var url = '@Url.Action("Products", "Home")';
+
+            // Add the search query as a query parameter
+            if (searchQuery) {
+                url += '?search=' + encodeURIComponent(searchQuery);
+            }
+
+            // Redirect to the search URL
+            window.location.href = url;
+        }
+    });
+        </script>
+
+        <script>
+    function addToCart(productId) {
+        // Send an AJAX request to add the product to the cart
+        $.post('@Url.Action("AddToCart", "Home")', { productId: productId }, function (data) {
+            if (data.success) {
+                // Update the cart count in the icon
+                var cartCountElement = $('#cart-count');
+                cartCountElement.text(data.cartCount);
+                displayPopupMessage("Product added to the cart!");
+            } else {
+                // Handle the case where adding to the cart failed
+                displayPopupMessage(data.message);
+            }
+        });
+    }
+
+    function displayPopupMessage(message) {
+        var popup = $('#popup-message');
+        popup.text(message);
+        popup.fadeIn();
+
+        setTimeout(function () {
+            popup.fadeOut();
+        }, 5000); // 5000 milliseconds (5 seconds)
+    }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                // Handle the "Add to Cart" click event within the modal
+                $('.modal').on('click', '.btn.add-to-cart', function () {
+                    // Retrieve the productId from the modal's ID
+                    var modalId = $(this).closest('.modal').attr('id');
+                    var productId = modalId.split('-')[1]; // Extract the ProductId from the modal ID
+
+                    // Call the addToCart function with the correct productId
+                    addToCart(productId);
+                });
+            });
+
+        </script>
+
+
+    </body>
+</html>

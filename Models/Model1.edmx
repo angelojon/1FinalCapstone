@@ -1,0 +1,1236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="AccountStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AuditLogs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="LoginDate" Type="datetime" />
+          <Property Name="ForgotPasswordDate" Type="datetime" />
+          <Property Name="ChangePasswordDate" Type="datetime" />
+          <Property Name="OldFirstName" Type="nvarchar(max)" />
+          <Property Name="OldLastName" Type="nvarchar(max)" />
+          <Property Name="OldContactNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="OldAddress" Type="nvarchar(max)" />
+          <Property Name="ChangeBasicInfoDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BikeBuilder">
+          <Key>
+            <PropertyRef Name="BuilderId" />
+          </Key>
+          <Property Name="BuilderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BuilderTitle1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BuilderDescription1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Bprice1" Type="int" Nullable="false" />
+          <Property Name="BImage1" Type="varbinary(max)" />
+          <Property Name="BuilderTitle2" Type="nvarchar(max)" />
+          <Property Name="BuilderDescription2" Type="nvarchar(max)" />
+          <Property Name="Bprice2" Type="int" />
+          <Property Name="BImage2" Type="varbinary(max)" />
+          <Property Name="BuilderTitle3" Type="nvarchar(max)" />
+          <Property Name="BuilderDescription3" Type="nvarchar(max)" />
+          <Property Name="Bprice3" Type="int" />
+          <Property Name="BImage3" Type="varbinary(max)" />
+          <Property Name="ArchiveStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CancelledOrders">
+          <Key>
+            <PropertyRef Name="CancelId" />
+          </Key>
+          <Property Name="CancelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderName" Type="nvarchar(max)" />
+          <Property Name="OrderQuantity" Type="int" />
+          <Property Name="OrderPrice" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="PaymentMode" Type="nvarchar(max)" />
+          <Property Name="CustomerAccountNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="ItemPrice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Subtotal" Type="int" />
+          <Property Name="CartImage" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CartBuilder">
+          <Key>
+            <PropertyRef Name="CartBuilderId" />
+          </Key>
+          <Property Name="CartBuilderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="BuilderId" Type="int" />
+          <Property Name="BuilderName" Type="nvarchar(max)" />
+          <Property Name="BuilderPrice" Type="int" />
+          <Property Name="QuantityBuilder" Type="int" />
+          <Property Name="SubtotalBuilder" Type="int" />
+          <Property Name="BuilderImage" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CheckoutTable">
+          <Key>
+            <PropertyRef Name="CheckoutId" />
+          </Key>
+          <Property Name="OrderName" Type="nvarchar(max)" />
+          <Property Name="OrderQuantity" Type="int" />
+          <Property Name="OrderPrice" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="BuilderImage" Type="varbinary(max)" />
+          <Property Name="CartImage" Type="varbinary(max)" />
+          <Property Name="PaymentMode" Type="nvarchar(max)" />
+          <Property Name="CustomerAccountNumber" Type="nvarchar(max)" />
+          <Property Name="CheckoutId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckoutDate" Type="datetime" />
+          <Property Name="AcceptedDate" Type="datetime" />
+          <Property Name="CartId" Type="int" />
+        </EntityType>
+        <EntityType Name="CompletedOrders">
+          <Key>
+            <PropertyRef Name="CompletedId" />
+          </Key>
+          <Property Name="CompletedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderName" Type="nvarchar(max)" />
+          <Property Name="OrderQuantity" Type="int" />
+          <Property Name="OrderPrice" Type="int" />
+          <Property Name="TotalPrice" Type="int" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="PaymentMode" Type="nvarchar(max)" />
+          <Property Name="CustomerAccountNumber" Type="nvarchar(max)" />
+          <Property Name="OrderStatus" Type="nvarchar(max)" />
+          <Property Name="CheckoutDate" Type="datetime" />
+          <Property Name="AcceptedDate" Type="datetime" />
+          <Property Name="CompletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Images" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CustomerAccount">
+          <Key>
+            <PropertyRef Name="CustomerAccountId" />
+          </Key>
+          <Property Name="CustomerAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="TransactionId" Type="int" Nullable="false" />
+          <Property Name="LastPurchaseDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderInformation">
+          <Key>
+            <PropertyRef Name="OrderInformationId" />
+          </Key>
+          <Property Name="OrderInformationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ShippingId" Type="int" Nullable="false" />
+          <Property Name="PriceOrderInfo" Type="int" Nullable="false" />
+          <Property Name="QuantityOrderInfo" Type="int" Nullable="false" />
+          <Property Name="PurchaseDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar(max)" />
+          <Property Name="ItemDesc" Type="nvarchar(max)" />
+          <Property Name="ItemQuantity" Type="int" />
+          <Property Name="ItemCost" Type="int" />
+          <Property Name="ItemPrice" Type="int" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="ArchiveStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="ComponentType" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Product2">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BikeDetailsId" Type="int" Nullable="false" />
+          <Property Name="BikePartsDetailsId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ShippingId" />
+          </Key>
+          <Property Name="ShippingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourierName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShopAccounts">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GcashAccountName" Type="nvarchar(max)" />
+          <Property Name="GcashAccountNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="PaymayaAccountName" Type="nvarchar(max)" />
+          <Property Name="PaymayaAccountNumber" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionCode" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CustomerAccount_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerAccount">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerAccount_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionId" />
+            </Principal>
+            <Dependent Role="CustomerAccount">
+              <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Product">
+          <End Role="Product2" Type="Self.Product2" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product2">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Shipping">
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipping">
+              <PropertyRef Name="ShippingId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="ShippingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLogs" EntityType="Self.AuditLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BikeBuilder" EntityType="Self.BikeBuilder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CancelledOrders" EntityType="Self.CancelledOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CartBuilder" EntityType="Self.CartBuilder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckoutTable" EntityType="Self.CheckoutTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompletedOrders" EntityType="Self.CompletedOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderInformation" EntityType="Self.OrderInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product2" EntityType="Self.Product2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopAccounts" EntityType="Self.ShopAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CustomerAccount_Customer" Association="Self.FK_CustomerAccount_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerAccount_Transaction" Association="Self.FK_CustomerAccount_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Customer" Association="Self.FK_OrderInformation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Product" Association="Self.FK_OrderInformation_Product">
+            <End Role="Product2" EntitySet="Product2" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Shipping" Association="Self.FK_OrderInformation_Shipping">
+            <End Role="Shipping" EntitySet="Shipping" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="CartBuilder">
+          <Key>
+            <PropertyRef Name="CartBuilderId" />
+          </Key>
+          <Property Name="CartBuilderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderId" Type="Int32" />
+          <Property Name="BuilderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderPrice" Type="Int32" />
+          <Property Name="QuantityBuilder" Type="Int32" />
+          <Property Name="SubtotalBuilder" Type="Int32" />
+          <Property Name="BuilderImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Images" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CustomerAccount" Relationship="Self.FK_CustomerAccount_Customer" FromRole="Customer" ToRole="CustomerAccount" />
+          <NavigationProperty Name="OrderInformation" Relationship="Self.FK_OrderInformation_Customer" FromRole="Customer" ToRole="OrderInformation" />
+        </EntityType>
+        <EntityType Name="CustomerAccount">
+          <Key>
+            <PropertyRef Name="CustomerAccountId" />
+          </Key>
+          <Property Name="CustomerAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="LastPurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerAccount_Customer" FromRole="CustomerAccount" ToRole="Customer" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_CustomerAccount_Transaction" FromRole="CustomerAccount" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="OrderInformation">
+          <Key>
+            <PropertyRef Name="OrderInformationId" />
+          </Key>
+          <Property Name="OrderInformationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ShippingId" Type="Int32" Nullable="false" />
+          <Property Name="PriceOrderInfo" Type="Int32" Nullable="false" />
+          <Property Name="QuantityOrderInfo" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_OrderInformation_Customer" FromRole="OrderInformation" ToRole="Customer" />
+          <NavigationProperty Name="Product2" Relationship="Self.FK_OrderInformation_Product" FromRole="OrderInformation" ToRole="Product2" />
+          <NavigationProperty Name="Shipping" Relationship="Self.FK_OrderInformation_Shipping" FromRole="OrderInformation" ToRole="Shipping" />
+        </EntityType>
+        <EntityType Name="Product2">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BikeDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="BikePartsDetailsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrderInformation" Relationship="Self.FK_OrderInformation_Product" FromRole="Product2" ToRole="OrderInformation" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ShippingId" />
+          </Key>
+          <Property Name="ShippingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderInformation" Relationship="Self.FK_OrderInformation_Shipping" FromRole="Shipping" ToRole="OrderInformation" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CustomerAccount" Relationship="Self.FK_CustomerAccount_Transaction" FromRole="Transaction" ToRole="CustomerAccount" />
+        </EntityType>
+        <Association Name="FK_CustomerAccount_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerAccount">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerAccount_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionId" />
+            </Principal>
+            <Dependent Role="CustomerAccount">
+              <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Product">
+          <End Role="Product2" Type="Self.Product2" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product2">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderInformation_Shipping">
+          <End Role="Shipping" Type="Self.Shipping" Multiplicity="1" />
+          <End Role="OrderInformation" Type="Self.OrderInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipping">
+              <PropertyRef Name="ShippingId" />
+            </Principal>
+            <Dependent Role="OrderInformation">
+              <PropertyRef Name="ShippingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="CartBuilder" EntityType="Self.CartBuilder" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" />
+          <EntitySet Name="OrderInformation" EntityType="Self.OrderInformation" />
+          <EntitySet Name="Product2" EntityType="Self.Product2" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" />
+          <AssociationSet Name="FK_CustomerAccount_Customer" Association="Self.FK_CustomerAccount_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Customer" Association="Self.FK_OrderInformation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerAccount_Transaction" Association="Self.FK_CustomerAccount_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Product" Association="Self.FK_OrderInformation_Product">
+            <End Role="Product2" EntitySet="Product2" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderInformation_Shipping" Association="Self.FK_OrderInformation_Shipping">
+            <End Role="Shipping" EntitySet="Shipping" />
+            <End Role="OrderInformation" EntitySet="OrderInformation" />
+          </AssociationSet>
+          <EntitySet Name="ShopAccounts" EntityType="Model.ShopAccounts" />
+          <EntitySet Name="BikeBuilder" EntityType="Model.BikeBuilder" />
+          <EntitySet Name="Product" EntityType="Model.Product" />
+          <EntitySet Name="AuditLogs" EntityType="Model.AuditLogs" />
+          <EntitySet Name="CancelledOrders" EntityType="Model.CancelledOrders" />
+          <EntitySet Name="CompletedOrders" EntityType="Model.CompletedOrders" />
+          <EntitySet Name="AspNetRoles" EntityType="Model.AspNetRoles" />
+          <EntitySet Name="AspNetUsers" EntityType="Model.AspNetUsers" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Model.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Cart" EntityType="Model.Cart" />
+          <EntitySet Name="CheckoutTable" EntityType="Model.CheckoutTable" />
+          </EntityContainer>
+        <EntityType Name="ShopAccounts">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GcashAccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GcashAccountNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="PaymayaAccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymayaAccountNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BikeBuilder">
+          <Key>
+            <PropertyRef Name="BuilderId" />
+          </Key>
+          <Property Name="BuilderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepTitle" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderTitle1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderDescription1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bprice1" Type="Int32" Nullable="false" />
+          <Property Name="BImage1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="BuilderTitle2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderDescription2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bprice2" Type="Int32" />
+          <Property Name="BImage2" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="BuilderTitle3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderDescription3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bprice3" Type="Int32" />
+          <Property Name="BImage3" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ArchiveStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemQuantity" Type="Int32" />
+          <Property Name="ItemCost" Type="Int32" />
+          <Property Name="ItemPrice" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ArchiveStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ComponentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AuditLogs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoginDate" Type="DateTime" Precision="3" />
+          <Property Name="ForgotPasswordDate" Type="DateTime" Precision="3" />
+          <Property Name="ChangePasswordDate" Type="DateTime" Precision="3" />
+          <Property Name="OldFirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldLastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldContactNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="OldAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChangeBasicInfoDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CancelledOrders">
+          <Key>
+            <PropertyRef Name="CancelId" />
+          </Key>
+          <Property Name="CancelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderQuantity" Type="Int32" />
+          <Property Name="OrderPrice" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompletedOrders">
+          <Key>
+            <PropertyRef Name="CompletedId" />
+          </Key>
+          <Property Name="CompletedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderQuantity" Type="Int32" />
+          <Property Name="OrderPrice" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CheckoutDate" Type="DateTime" Precision="3" />
+          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="Model.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemPrice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Subtotal" Type="Int32" />
+          <Property Name="CartImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="CheckoutTable">
+          <Key>
+            <PropertyRef Name="CheckoutId" />
+          </Key>
+          <Property Name="OrderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderQuantity" Type="Int32" />
+          <Property Name="OrderPrice" Type="Int32" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuilderImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CartImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PaymentMode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CheckoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckoutDate" Type="DateTime" Precision="3" />
+          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
+          <Property Name="CartId" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CartBuilder">
+            <EntityTypeMapping TypeName="Model.CartBuilder">
+              <MappingFragment StoreEntitySet="CartBuilder">
+                <ScalarProperty Name="CartBuilderId" ColumnName="CartBuilderId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BuilderId" ColumnName="BuilderId" />
+                <ScalarProperty Name="BuilderName" ColumnName="BuilderName" />
+                <ScalarProperty Name="BuilderPrice" ColumnName="BuilderPrice" />
+                <ScalarProperty Name="QuantityBuilder" ColumnName="QuantityBuilder" />
+                <ScalarProperty Name="SubtotalBuilder" ColumnName="SubtotalBuilder" />
+                <ScalarProperty Name="BuilderImage" ColumnName="BuilderImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAccount">
+            <EntityTypeMapping TypeName="Model.CustomerAccount">
+              <MappingFragment StoreEntitySet="CustomerAccount">
+                <ScalarProperty Name="CustomerAccountId" ColumnName="CustomerAccountId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="LastPurchaseDate" ColumnName="LastPurchaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderInformation">
+            <EntityTypeMapping TypeName="Model.OrderInformation">
+              <MappingFragment StoreEntitySet="OrderInformation">
+                <ScalarProperty Name="OrderInformationId" ColumnName="OrderInformationId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
+                <ScalarProperty Name="PriceOrderInfo" ColumnName="PriceOrderInfo" />
+                <ScalarProperty Name="QuantityOrderInfo" ColumnName="QuantityOrderInfo" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product2">
+            <EntityTypeMapping TypeName="Model.Product2">
+              <MappingFragment StoreEntitySet="Product2">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="BikeDetailsId" ColumnName="BikeDetailsId" />
+                <ScalarProperty Name="BikePartsDetailsId" ColumnName="BikePartsDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipping">
+            <EntityTypeMapping TypeName="Model.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="ShippingId" ColumnName="ShippingId" />
+                <ScalarProperty Name="CourierName" ColumnName="CourierName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction">
+            <EntityTypeMapping TypeName="Model.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopAccounts">
+            <EntityTypeMapping TypeName="Model.ShopAccounts">
+              <MappingFragment StoreEntitySet="ShopAccounts">
+                <ScalarProperty Name="PaymayaAccountNumber" ColumnName="PaymayaAccountNumber" />
+                <ScalarProperty Name="PaymayaAccountName" ColumnName="PaymayaAccountName" />
+                <ScalarProperty Name="GcashAccountNumber" ColumnName="GcashAccountNumber" />
+                <ScalarProperty Name="GcashAccountName" ColumnName="GcashAccountName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BikeBuilder">
+            <EntityTypeMapping TypeName="Model.BikeBuilder">
+              <MappingFragment StoreEntitySet="BikeBuilder">
+                <ScalarProperty Name="ArchiveStatus" ColumnName="ArchiveStatus" />
+                <ScalarProperty Name="BImage3" ColumnName="BImage3" />
+                <ScalarProperty Name="Bprice3" ColumnName="Bprice3" />
+                <ScalarProperty Name="BuilderDescription3" ColumnName="BuilderDescription3" />
+                <ScalarProperty Name="BuilderTitle3" ColumnName="BuilderTitle3" />
+                <ScalarProperty Name="BImage2" ColumnName="BImage2" />
+                <ScalarProperty Name="Bprice2" ColumnName="Bprice2" />
+                <ScalarProperty Name="BuilderDescription2" ColumnName="BuilderDescription2" />
+                <ScalarProperty Name="BuilderTitle2" ColumnName="BuilderTitle2" />
+                <ScalarProperty Name="BImage1" ColumnName="BImage1" />
+                <ScalarProperty Name="Bprice1" ColumnName="Bprice1" />
+                <ScalarProperty Name="BuilderDescription1" ColumnName="BuilderDescription1" />
+                <ScalarProperty Name="BuilderTitle1" ColumnName="BuilderTitle1" />
+                <ScalarProperty Name="StepTitle" ColumnName="StepTitle" />
+                <ScalarProperty Name="BuilderId" ColumnName="BuilderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
+                <ScalarProperty Name="ArchiveStatus" ColumnName="ArchiveStatus" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+                <ScalarProperty Name="ItemCost" ColumnName="ItemCost" />
+                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+                <ScalarProperty Name="ItemDesc" ColumnName="ItemDesc" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="Model.AuditLogs">
+              <MappingFragment StoreEntitySet="AuditLogs">
+                <ScalarProperty Name="ChangeBasicInfoDate" ColumnName="ChangeBasicInfoDate" />
+                <ScalarProperty Name="OldAddress" ColumnName="OldAddress" />
+                <ScalarProperty Name="OldContactNumber" ColumnName="OldContactNumber" />
+                <ScalarProperty Name="OldLastName" ColumnName="OldLastName" />
+                <ScalarProperty Name="OldFirstName" ColumnName="OldFirstName" />
+                <ScalarProperty Name="ChangePasswordDate" ColumnName="ChangePasswordDate" />
+                <ScalarProperty Name="ForgotPasswordDate" ColumnName="ForgotPasswordDate" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CancelledOrders">
+            <EntityTypeMapping TypeName="Model.CancelledOrders">
+              <MappingFragment StoreEntitySet="CancelledOrders">
+                <ScalarProperty Name="CustomerAccountNumber" ColumnName="CustomerAccountNumber" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+                <ScalarProperty Name="CancelId" ColumnName="CancelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompletedOrders">
+            <EntityTypeMapping TypeName="Model.CompletedOrders">
+              <MappingFragment StoreEntitySet="CompletedOrders">
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="CustomerAccountNumber" ColumnName="CustomerAccountNumber" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+                <ScalarProperty Name="CompletedId" ColumnName="CompletedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AccountStatus" ColumnName="AccountStatus" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="Model.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CartImage" ColumnName="CartImage" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckoutTable">
+            <EntityTypeMapping TypeName="Model.CheckoutTable">
+              <MappingFragment StoreEntitySet="CheckoutTable">
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="CheckoutId" ColumnName="CheckoutId" />
+                <ScalarProperty Name="CustomerAccountNumber" ColumnName="CustomerAccountNumber" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="CartImage" ColumnName="CartImage" />
+                <ScalarProperty Name="BuilderImage" ColumnName="BuilderImage" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

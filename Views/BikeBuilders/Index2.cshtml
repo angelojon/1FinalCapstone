@@ -1,0 +1,91 @@
+﻿@model IEnumerable<_1FinalCapstone.Models.BikeBuilder>
+
+@{
+    ViewBag.Title = "Index2";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .btn-margin {
+        margin-left: 10px;
+    }
+
+    table.table thead th {
+        width: 40%; /* Adjust the width as needed */
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) for long titles */
+    }
+</style>
+<br />
+<h2 class="text-center mb-4"><b> Final Step Bike Builder</b></h2>
+<div class="d-flex justify-content-end mb-2">
+    @Html.ActionLink("Go to Bike Steps Creation", "Index", null, new { @class = "btn btn-success btn-margin" })
+</div>
+<div class="table-responsive">
+    <div class="mb-2">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by Name" />
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Final Title</th>
+                <th>Builder Title 1</th>
+                <th>Builder Description 1</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StepTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuilderTitle1)
+                    </td>
+                    <td>
+                        @foreach (var descriptionPart in item.BuilderDescription1.Split(','))
+                        {
+                            <p>@descriptionPart.Trim()</p>
+                        }
+                    </td>
+                    <td>
+                        ₱@string.Format("{0:n0}", item.Bprice1).00
+                    </td>
+                    <td>
+                        <img src="data:image/png;base64,@item.Budimage1" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit2", new { id = item.BuilderId }, new { @class = "btn btn-primary btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // When the search input changes, filter the table rows.
+            $('#searchInput').on('input', function () {
+                var searchText = $(this).val().toLowerCase();
+                $('.table tbody tr').each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    $(this).toggle(rowText.indexOf(searchText) > -1);
+                });
+            });
+        });
+        function confirmArchive(button) {
+            if (confirm("Are you sure you want to archive this item?")) {
+                // If the user confirms, submit the form
+                button.closest("form").submit();
+            } else {
+                // If the user cancels, do nothing
+            }
+        }
+    </script>
+}
